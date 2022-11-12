@@ -52,7 +52,7 @@ button:not(#equals) {
     border-color: var(--op-border);
 }
 
-#numbers button {
+#buttons button {
     background: var(--num-background);
 }
 
@@ -61,7 +61,7 @@ button:not(#equals) {
     border-color: #bdbcbc;
 }
 
-#numbers button:hover {
+#buttons button:hover {
     background: #f3f3f3;
     border-color: #c3c3c3;
 } 
@@ -73,7 +73,7 @@ button#equals:hover {
 
 /* container */
 .container {
-    width: 38em;
+    width: 36em;
     margin: 0 auto;
     margin-top: 17em;
     padding: 18px;
@@ -82,7 +82,7 @@ button#equals:hover {
 }
 
 /* output */
-.output {
+#output {
     height: 50px;
     margin-bottom: 18px;
     padding-top: 20px;
@@ -99,7 +99,7 @@ button#equals:hover {
 }
 
 /* grid styling + equals button*/
-#operators, #numbers {
+#operators, #buttons {
     display: grid;
     gap: 18px;
 }
@@ -108,7 +108,7 @@ button#equals:hover {
     grid-template: 50px / repeat(4, 1fr);
 }
 
-#numbers {
+#buttons {
     margin-top: 18px;
     grid-template: repeat(3, 50px) / repeat(4, 1fr);
 }
