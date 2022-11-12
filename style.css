@@ -1,0 +1,124 @@
+@font-face {
+    font-family: "Source Sans Pro";
+    src: url(fonts/SourceSansPro-Regular.otf);
+}
+
+:root {
+    --main-text: #3b3b3b;
+    --main-border: #cdcdcd;
+    --op-background: #DDDDDD;
+    --op-border: #c3c3c3;
+    --num-background: #F9F9F9;
+    --eq-background: #4E8FFE;
+    --eq-border: #477ad1;
+}
+
+body {
+    font-size: 10px;
+}
+
+i {
+    font-size: 0.5em;
+}
+
+/* button styling */
+button {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 2.7em;
+  color: var(--main-text);
+  border: 1.5px solid var(--main-border);
+  border-radius: 2px;
+  transition: box-shadow 120ms ease-in,
+  background 120ms ease-in,
+  border-color 120ms ease-in;
+}
+
+button:hover {
+    box-shadow: 0 0 3px var(--main-border);
+}
+
+button:active {
+    font-weight: 900;
+    font-size: 2.8em;
+}
+
+button:not(#equals) {
+    height: 50px;
+}
+
+#operators button {
+    line-height: 12px;
+    background: var(--op-background);
+    border-color: var(--op-border);
+}
+
+#numbers button {
+    background: var(--num-background);
+}
+
+#operators button:hover {
+    background: #d5d5d5;
+    border-color: #bdbcbc;
+}
+
+#numbers button:hover {
+    background: #f3f3f3;
+    border-color: #c3c3c3;
+} 
+
+button#equals:hover {
+    background: #3d84fe;
+    border-color: #3e6dc0;
+}
+
+/* container */
+.container {
+    width: 38em;
+    margin: 0 auto;
+    margin-top: 17em;
+    padding: 18px;
+    box-shadow: 0 0 5px var(--main-border);
+    border-radius: 2px;
+}
+
+/* output */
+.output {
+    height: 50px;
+    margin-bottom: 18px;
+    padding-top: 20px;
+    padding-right: 10px;
+    font-family: "Source Sans Pro", sans-serif;
+    text-align: right;
+    font-size: 2.7em;
+    border: 1px solid var(--main-border);
+    overflow-x: auto;
+}
+
+#output > p {
+    margin-right: 15px; 
+}
+
+/* grid styling + equals button*/
+#operators, #numbers {
+    display: grid;
+    gap: 18px;
+}
+
+#operators {
+    grid-template: 50px / repeat(4, 1fr);
+}
+
+#numbers {
+    margin-top: 18px;
+    grid-template: repeat(3, 50px) / repeat(4, 1fr);
+}
+
+button#equals {
+    grid-area: 1 / 4 / span 4 / 4;
+    color: white;
+    background: var(--eq-background);
+    border-color: var(--eq-border);
+}
+
+
+
