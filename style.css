@@ -76,7 +76,7 @@ button#equals:hover {
     width: 36em;
     margin: 0 auto;
     margin-top: 17em;
-    padding: 18px;
+    padding: 30px 18px;
     box-shadow: 0 0 5px var(--main-border);
     border-radius: 2px;
 }
