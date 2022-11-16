@@ -3,9 +3,12 @@ const operators = document.querySelectorAll('#operators > button');
 const numbers = document.querySelectorAll('.number');
 const clear = document.querySelector('#clear');
 const equals = document.querySelector('#equals');
-let numArr = [];
-let opArr = [];
-let op, num = '';
+const error = document.querySelector('#error');
+
+let numArr = [],
+    opArr = [];
+let op = '', 
+    num = '';
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -22,7 +25,12 @@ const operate = (op) => {
               : divide(total, num); 
     });
 
-    return solution == Infinity ? 'ERROR' : solution;
+    if (solution == Infinity) {
+        error.style.display = 'block';
+        return 'ERROR';
+    }
+
+    return solution;
 }
 
 const getOperator = (e) => {
@@ -40,7 +48,7 @@ const getOperator = (e) => {
     console.log(numArr);
 }
 
-const showNumber = (e) => {
+const getNumber = (e) => {
     num += e.target.textContent;
     display.textContent = num;
 
@@ -48,14 +56,7 @@ const showNumber = (e) => {
     console.log(numArr);
 }
 
-const clearDisplay = () => {
-    numArr = [];
-    op = '';
-    num = '';
-    display.textContent = ''; 
-}
-
-const showOutput = () => {
+const output = () => {
     numArr.push(num);
     num = '';
 
@@ -66,7 +67,16 @@ const showOutput = () => {
     console.log(numArr);
 }
 
+const reset = () => {
+    numArr = [];
+    opArr = [];
+    op = '';
+    num = '';
+    display.textContent = ''; 
+    error.style.display = 'none';
+}
+
 operators.forEach(btn => btn.addEventListener('click', getOperator));
-numbers.forEach(btn => btn.addEventListener('click', showNumber));
-clear.addEventListener('click', clearDisplay);
-equals.addEventListener('click', showOutput);
+numbers.forEach(btn => btn.addEventListener('click', getNumber));
+equals.addEventListener('click', output);
+clear.addEventListener('click', reset);

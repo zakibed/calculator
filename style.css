@@ -14,17 +14,14 @@
 }
 
 body {
+    font-family: "Source Sans Pro", sans-serif;
     font-size: 10px;
-}
-
-i {
-    font-size: 0.5em;
 }
 
 /* button styling */
 button {
   font-family: "Source Sans Pro", sans-serif;
-  font-size: 2.7em;
+  font-size: 3em;
   color: var(--main-text);
   border: 1.5px solid var(--main-border);
   border-radius: 2px;
@@ -87,9 +84,8 @@ button#equals:hover {
     margin-bottom: 18px;
     padding-top: 20px;
     padding-right: 10px;
-    font-family: "Source Sans Pro", sans-serif;
     text-align: right;
-    font-size: 2.7em;
+    font-size: 3em;
     border: 1px solid var(--main-border);
     overflow-x: auto;
 }
@@ -120,5 +116,9 @@ button#equals {
     border-color: var(--eq-border);
 }
 
-
-
+#error {
+    font-size:  2em;
+    color: red;
+    text-align: center;
+    display: none;
+}
