@@ -5,6 +5,7 @@ const clear = document.querySelector('#clear');
 const equals = document.querySelector('#equals');
 const error = document.querySelector('#error');
 
+let check = true;
 let numArr = [],
     opArr = [];
 let op = '', 
@@ -18,14 +19,19 @@ const divide = (a, b) => a / b;
 const operate = (op) => {
     numArr = numArr.map(num => Number(num));
 
-    const solution = numArr.reduce((total, num) => {
+    // if (numArr.includes(0)) {
+    //     const index = numArr.findIndex(index => numArr[index] == 0);
+    //     numArr.splice(index, 1);
+    // }
+
+    const solution = numArr.reduce((total, num) => { 
         return op == '+' ? add(total, num) 
               : op == '-' ? subtract(total, num) 
               : op == '*' ? multiply(total, num) 
               : divide(total, num); 
     });
 
-    if (solution == Infinity) {
+    if (solution == Infinity || display.textContent == 'NaN') {
         error.style.display = 'block';
         return 'ERROR';
     }
@@ -34,40 +40,40 @@ const operate = (op) => {
 }
 
 const getOperator = (e) => {
-    numArr.push(num);
-    num = '';
+    if (check == true) numArr.push(display.textContent);
 
     op = e.target.value;
     opArr.push(op);
 
     opArr.length >= 2 ? display.textContent = operate(opArr[opArr.length - 2]) 
                       : display.textContent = operate(op);
-    numArr = [display.textContent];
 
-    console.log(op);
-    console.log(numArr);
+    numArr = [display.textContent];
+    check = false;
+    num = '';
+    console.log(`operator : ${op}`);
 }
 
 const getNumber = (e) => {
-    num += e.target.textContent;
+    num += e.target.textContent; 
     display.textContent = num;
 
-    console.log(op);
-    console.log(numArr);
+    check = true;
+    console.log(`number : ${display.textContent}`);
 }
 
 const output = () => {
-    numArr.push(num);
-    num = '';
-
+    numArr.push(display.textContent);
     display.textContent = operate(op);
-    numArr = [display.textContent];
 
-    console.log(op);
-    console.log(numArr);
+    numArr = [display.textContent];
+    check = false;
+    num = '';
+    console.log(`[result : ${display.textContent}]`);
 }
 
 const reset = () => {
+    check = true;
     numArr = [];
     opArr = [];
     op = '';
