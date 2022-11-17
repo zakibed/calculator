@@ -45,13 +45,18 @@ const getOperator = (e) => {
                       : display.textContent = operate(op);
 
     numArr = [display.textContent];
-    check = false;
+    check = true;
     num = '';
 
     console.log(`operator : ${op}`);
 }
 
 const getNumber = (e) => {
+    if (check == false) {
+        check = true;
+        numArr = [];
+    }
+
     num += e.target.textContent; 
     display.textContent = num;
 
