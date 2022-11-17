@@ -19,11 +19,6 @@ const divide = (a, b) => a / b;
 const operate = (op) => {
     numArr = numArr.map(num => Number(num));
 
-    // if (numArr.includes(0)) {
-    //     const index = numArr.findIndex(index => numArr[index] == 0);
-    //     numArr.splice(index, 1);
-    // }
-
     const solution = numArr.reduce((total, num) => { 
         return op == '+' ? add(total, num) 
               : op == '-' ? subtract(total, num) 
@@ -36,7 +31,7 @@ const operate = (op) => {
         return 'ERROR';
     }
 
-    return solution;
+    return Number(solution.toFixed(4));
 }
 
 const getOperator = (e) => {
@@ -51,6 +46,7 @@ const getOperator = (e) => {
     numArr = [display.textContent];
     check = false;
     num = '';
+
     console.log(`operator : ${op}`);
 }
 
@@ -59,16 +55,20 @@ const getNumber = (e) => {
     display.textContent = num;
 
     check = true;
+
     console.log(`number : ${display.textContent}`);
 }
 
 const output = () => {
+    if (!numArr.length) return;
+
     numArr.push(display.textContent);
     display.textContent = operate(op);
 
     numArr = [display.textContent];
     check = false;
     num = '';
+
     console.log(`[result : ${display.textContent}]`);
 }
 
