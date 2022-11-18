@@ -25,18 +25,18 @@ button {
   color: var(--main-text);
   border: 1.5px solid var(--main-border);
   border-radius: 2px;
-  transition: box-shadow 120ms ease-in,
-  background 120ms ease-in,
-  border-color 120ms ease-in;
+  transition: box-shadow 80ms ease-out,
+  background 80ms ease-out,
+  border-color 80ms ease-out;
 }
 
 button:hover {
-    box-shadow: 0 0 3px var(--main-border);
+    box-shadow: 0 0 6px var(--main-border);
 }
 
 button:active {
     font-weight: 900;
-    font-size: 2.8em;
+    font-size: 3.5em;
 }
 
 button:not(#equals) {
@@ -55,17 +55,17 @@ button:not(#equals) {
 
 #operators button:hover {
     background: #d5d5d5;
-    border-color: #bdbcbc;
+    border-color: #8a8a8a;
 }
 
 #buttons button:hover {
     background: #f3f3f3;
-    border-color: #c3c3c3;
+    border-color: #989898;
 } 
 
 button#equals:hover {
-    background: #3d84fe;
-    border-color: #3e6dc0;
+    background: #2f7bfd;
+    border-color: #2a4b82;
 }
 
 /* container */
@@ -78,23 +78,27 @@ button#equals:hover {
     border-radius: 2px;
 }
 
-/* output */
-#output {
-    height: 50px;
+/* display */
+#display {
     margin-bottom: 18px;
-    padding: 10px; 
+    padding: 0px 10px; 
     text-align: right;
-    font-size: 4em;
     border: 1px solid var(--main-border);
     overflow-y: hidden;
     overflow-x: scroll;
 }
 
-#output > p {
-    margin-right: 15px; 
+#display > div:first-of-type {
+    height: 32px;
+    margin-right: 2px;
+    font-size: 2.5em;
 }
 
-/* grid styling + equals button*/
+#display > div:last-of-type {
+    font-size: 4em;
+}
+
+/* grid styling*/
 #operators, #buttons {
     display: grid;
     gap: 18px;
@@ -116,6 +120,7 @@ button#equals {
     border-color: var(--eq-border);
 }
 
+/* error */
 #error {
     font-size:  2em;
     color: red;

@@ -1,16 +1,19 @@
-const display = document.querySelector('#output');
+const input = document.querySelector('#display > div:first-of-type');
+const output = document.querySelector('#display > div:last-of-type');
+
 const operators = document.querySelectorAll('#operators > button');
 const numbers = document.querySelectorAll('.number');
 const decimal = document.querySelector('#decimal');
 const clear = document.querySelector('#clear');
 const equals = document.querySelector('#equals');
+
 const error = document.querySelector('#error');
 
 let check = true;
 let numArr = [],
     opArr = [];
-let op = '';
-let num = '';
+let op = '',
+    num = '';
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -27,7 +30,7 @@ const operate = (op) => {
               : divide(total, num); 
     });
 
-    if (solution == Infinity || display.textContent == 'NaN') {
+    if (solution == Infinity) {
         error.style.display = 'block';
         return 'ERROR';
     }
@@ -36,69 +39,71 @@ const operate = (op) => {
 }
 
 const getOperator = (e) => {
-    if (check == true) numArr.push(display.textContent);
+    if (check == true) numArr.push(output.textContent);
 
     op = e.target.value;
     opArr.push(op);
 
-    opArr.length >= 2 ? display.textContent = operate(opArr[opArr.length - 2]) 
-                      : display.textContent = operate(op);
+    opArr.length >= 2 ? output.textContent = operate(opArr[opArr.length - 2]) 
+                      : output.textContent = operate(op);
 
-    numArr = [display.textContent];
+    numArr = [output.textContent];
     check = true;
     num = '';
 
     console.log(`operator : ${op}`);
+    console.log(opArr);
 }
 
 const getNumber = (e) => {
-    if (check == false) {
-        check = true;
-        numArr = [];
-    }
+    if (check == false) numArr = [];
 
     num += e.target.textContent; 
-    display.textContent = num;
+    output.textContent = num;
 
     check = true;
 
-    console.log(`number : ${display.textContent}`);
+    console.log(`number : ${output.textContent}`);
 }
 
-const addDecimal = () => {
+const getDecimal = () => {
     if (!num[0]) num += '0';
 
     if (!num.includes('.')) {
         num += '.';
-        display.textContent = num;
+        output.textContent = num;
     }
 }
 
-const output = () => {
+const getOutput = () => {
     if (!numArr.length) return;
 
-    numArr.push(display.textContent);
-    display.textContent = operate(op);
+    numArr.push(output.textContent);
+    output.textContent = operate(op);
 
-    numArr = [display.textContent];
+    numArr = [output.textContent];
     check = false;
     num = '';
 
-    console.log(`[result : ${display.textContent}]`);
+    console.log(`[result : ${output.textContent}]`);
 }
 
 const reset = () => {
-    check = true;
+    clicked = [];
     numArr = [];
     opArr = [];
+
     op = '';
     num = '';
-    display.textContent = '0'; 
+
+    output.textContent = '0'; 
+    input.textContent = '';
+    
     error.style.display = 'none';
 }
 
 operators.forEach(btn => btn.addEventListener('click', getOperator));
 numbers.forEach(btn => btn.addEventListener('click', getNumber));
-decimal.addEventListener('click', addDecimal);
-equals.addEventListener('click', output);
+decimal.addEventListener('click', getDecimal);
+equals.addEventListener('click', getOutput);
 clear.addEventListener('click', reset);
