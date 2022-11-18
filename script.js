@@ -1,19 +1,19 @@
-const input = document.querySelector('#display > div:first-of-type');
-const output = document.querySelector('#display > div:last-of-type');
+const input = document.querySelector('#display > div:first-of-type'),
+      output = document.querySelector('#display > div:last-of-type');
 
-const operators = document.querySelectorAll('#operators > button');
-const numbers = document.querySelectorAll('.number');
-const decimal = document.querySelector('#decimal');
-const clear = document.querySelector('#clear');
-const equals = document.querySelector('#equals');
+const operators = document.querySelectorAll('#operators > button'),
+      numbers = document.querySelectorAll('.number'),
+      decimal = document.querySelector('#decimal');
+
+const clear = document.querySelector('#clear'),
+      equals = document.querySelector('#equals');
 
 const error = document.querySelector('#error');
 
 let check = true;
-let numArr = [],
-    opArr = [];
-let op = '',
-    num = '';
+let opArr = [];
+let numArr = [];
+let op, num = '';
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -44,8 +44,9 @@ const getOperator = (e) => {
     op = e.target.value;
     opArr.push(op);
 
-    opArr.length >= 2 ? output.textContent = operate(opArr[opArr.length - 2]) 
-                      : output.textContent = operate(op);
+    output.textContent = (opArr.length >= 2) ? operate(opArr[opArr.length - 2]) : operate(op);
+    input.textContent = `${output.textContent} ${e.target.textContent}`;
+    input.style.visibility = 'visible';
 
     numArr = [output.textContent];
     check = true;
@@ -76,9 +77,11 @@ const getDecimal = () => {
 }
 
 const getOutput = () => {
-    if (!numArr.length) return;
+    if (!numArr.length || input.textContent.includes('=')) return;
 
     numArr.push(output.textContent);
+
+    input.textContent += `${output.textContent} =`;
     output.textContent = operate(op);
 
     numArr = [output.textContent];
@@ -89,16 +92,12 @@ const getOutput = () => {
 }
 
 const reset = () => {
-    clicked = [];
-    numArr = [];
+    check = true;
     opArr = [];
-
-    op = '';
-    num = '';
-
+    numArr = [];
+    op, num = '';
     output.textContent = '0'; 
-    input.textContent = '';
-    
+    input.style.visibility = 'hidden';
     error.style.display = 'none';
 }
 
