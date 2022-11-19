@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>+-&times;&divide; Calculator</title>
+        <script src="https://kit.fontawesome.com/ea6e9201dc.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css">
         <script src="script.js" defer></script>
     </head>
@@ -14,7 +15,7 @@
                 <div>0</div>
             </div>
 
-            <div id="operators">
+            <!-- <div id="operators">
                 <button id="add" value="+">
                     +
                 </button>
@@ -27,9 +28,13 @@
                 <button id="divide" value="/">
                     &divide;
                 </button>
-            </div>
+            </div> -->
 
             <div id="buttons">
+                <button id="clear">AC</button>
+                <button id="plus-minus"><i class="fa-solid fa-plus-minus"></i></button>
+                <button id="remainder">%</button>
+
                 <button class="number">1</button>
                 <button class="number">2</button>
                 <button class="number">3</button>
@@ -40,9 +45,15 @@
                 <button class="number">8</button>
                 <button class="number">9</button>
                 <button class="number">0</button>
-                <button class="btn-1" id="decimal">.</button>
-                <button class="btn-1" id="clear">AC</button>
-                <button class="btn-1" id="equals">=</button>
+
+                <button id="decimal">.</button>
+
+                <button class="operator" id="divide" value="/">&divide;</button>
+                <button class="operator" id="multiply" value="*">&times;</button>
+                <button class="operator" id="subtract" value="-">-</button>
+                <button class="operator" id="add" value="+">+</button>
+
+                <button id="equals">=</button>
             </div>
         </div>
 

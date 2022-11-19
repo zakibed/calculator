@@ -1,13 +1,13 @@
-const input = document.querySelector('#display > div:first-of-type'),
-      output = document.querySelector('#display > div:last-of-type');
+const input = document.querySelector('#display > div:last-of-type'),
+      output = document.querySelector('#display > div:first-of-type');
 
-const operators = document.querySelectorAll('#operators > button'),
+const operators = document.querySelectorAll('.operator'),
       numbers = document.querySelectorAll('.number'),
       decimal = document.querySelector('#decimal');
 
 const clear = document.querySelector('#clear'),
       equals = document.querySelector('#equals');
-
+      
 const error = document.querySelector('#error');
 
 let check = true;
@@ -33,7 +33,7 @@ const operate = (op) => {
     if (solution == Infinity) {
         error.style.display = 'block';
         return 'ERROR';
-    }
+    } 
 
     return Number(solution.toFixed(4));
 }
@@ -81,7 +81,7 @@ const getOutput = () => {
 
     numArr.push(output.textContent);
 
-    input.textContent += `${output.textContent} =`;
+    input.textContent += ` ${output.textContent} =`;
     output.textContent = operate(op);
 
     numArr = [output.textContent];
