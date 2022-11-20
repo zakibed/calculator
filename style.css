@@ -5,9 +5,9 @@
 
 :root {
     --main-gray: #EBEBEB;
-    --dark-gray: #969798;
+    --dark-gray: #7b7b7c;
     --dark: #353535;
-    --main-white: #EFEDEE;
+    --main-white: #faf7f9;
     --orange: #ED802E;
 }
 
@@ -23,18 +23,15 @@ body, button {
         'Helvetica Neue', sans-serif;
 }
 
-i {
-    font-size: 0.6em;
-}
-
 /* button styling */
 button {
     font-size: 3em;
     color: var(--dark-gray);
     background: var(--main-white);
     border: none;
+    border-top: 2px solid white;
     border-radius: 10px;
-    box-shadow: 0 3px 0 rgba(138, 138, 138, 0.1), 0 4px 7px rgba(151, 151, 151, 0.15); ;
+    box-shadow: 0 3px 0 rgba(127, 127, 127, 0.15), 0 8px 6px rgba(140, 140, 140, 0.2); ;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,7 +58,6 @@ button:active, #equals:active {
 /* display */
 #display {
     width: 375px;
-    margin-top: 25px;
     margin-bottom: 20px; 
     text-align: right;
     color: var(--dark);
@@ -69,14 +65,14 @@ button:active, #equals:active {
 }
 
 #display > div:first-of-type {
-    font-size: 6.5em;
-}
-
-#display > div:last-of-type {
     margin-right: 2px;
     font-size: 2.3em;
     color: var(--dark-gray);
     visibility: hidden;
+}
+
+#display > div:last-of-type {
+    font-size: 6.5em;
 }
 
 /* grid */
@@ -107,7 +103,7 @@ button:active, #equals:active {
 }
 
 #equals{
-    box-shadow: 0 3px 0 rgba(138, 92, 40, 0.1), 0 4px 7px rgba(151, 92, 40, 0.15);
+    box-shadow: 0 3px 0 rgba(186, 93, 23, 0.5) , 0 8px 6px rgba(124, 93, 71, 0.3);
     color: white;
     background: var(--orange);
     grid-area: 5 / 3 / 5 / span 2;

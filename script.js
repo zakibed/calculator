@@ -1,9 +1,11 @@
-const input = document.querySelector('#display > div:last-of-type'),
-      output = document.querySelector('#display > div:first-of-type');
+const input = document.querySelector('#display > div:first-of-type'),
+      output = document.querySelector('#display > div:last-of-type');
 
 const operators = document.querySelectorAll('.operator'),
       numbers = document.querySelectorAll('.number'),
-      decimal = document.querySelector('#decimal');
+      decimal = document.querySelector('#decimal'),
+      plusMinus = document.querySelector('#plus-minus'),
+      percent = document.querySelector('#percent');
 
 const clear = document.querySelector('#clear'),
       equals = document.querySelector('#equals');
@@ -76,6 +78,22 @@ const getDecimal = () => {
     }
 }
 
+const getSign = () => {
+    if (!output.textContent.includes('-')) {
+        output.textContent = `-${output.textContent}`;
+    } else {
+        output.textContent = output.textContent.slice(1);
+    }
+
+    if (check == false) numArr = [output.textContent];
+}
+
+const getPercent = () => {
+    output.textContent /= 100;
+
+    if (check == false) numArr = [output.textContent];
+}
+
 const getOutput = () => {
     if (!numArr.length || input.textContent.includes('=')) return;
 
@@ -104,5 +122,7 @@ const reset = () => {
 operators.forEach(btn => btn.addEventListener('click', getOperator));
 numbers.forEach(btn => btn.addEventListener('click', getNumber));
 decimal.addEventListener('click', getDecimal);
+plusMinus.addEventListener('click', getSign);
+percent.addEventListener('click', getPercent);
 equals.addEventListener('click', getOutput);
 clear.addEventListener('click', reset);
