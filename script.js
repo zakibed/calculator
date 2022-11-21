@@ -5,7 +5,8 @@ const operators = document.querySelectorAll('.operator'),
       numbers = document.querySelectorAll('.number'),
       decimal = document.querySelector('#decimal'),
       plusMinus = document.querySelector('#plus-minus'),
-      percent = document.querySelector('#percent');
+      percent = document.querySelector('#percent'),
+      buttons = document.querySelectorAll('#buttons > button');
 
 const clear = document.querySelector('#clear'),
       equals = document.querySelector('#equals');
@@ -16,6 +17,7 @@ let check = true;
 let opArr = [];
 let numArr = [];
 let op, num = '';
+let key;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -37,17 +39,19 @@ const operate = (op) => {
         return 'ERROR';
     } 
 
-    return Number(solution.toFixed(4));
+    return Number(solution.toFixed(8));
 }
 
 const getOperator = (e) => {
+    const target = key ? key : e.target;
+
     if (check == true) numArr.push(output.textContent);
 
-    op = e.target.value;
+    op = target.value;
     opArr.push(op);
 
     output.textContent = (opArr.length >= 2) ? operate(opArr[opArr.length - 2]) : operate(op);
-    input.textContent = `${output.textContent} ${e.target.textContent}`;
+    input.textContent = `${output.textContent} ${target.textContent}`;
     input.style.visibility = 'visible';
 
     numArr = [output.textContent];
@@ -61,7 +65,7 @@ const getOperator = (e) => {
 const getNumber = (e) => {
     if (check == false) numArr = [];
 
-    num += e.target.textContent; 
+    num += key ? key.textContent : e.target.textContent; 
     output.textContent = num;
 
     check = true;
@@ -79,17 +83,18 @@ const getDecimal = () => {
 }
 
 const getSign = () => {
-    if (!output.textContent.includes('-')) {
+    if (!output.textContent[0].includes('-')) {
         output.textContent = `-${output.textContent}`;
     } else {
-        output.textContent = output.textContent.slice(1);
+        output.textContent = Math.abs(output.textContent);
     }
 
     if (check == false) numArr = [output.textContent];
 }
 
 const getPercent = () => {
-    output.textContent /= 100;
+    const percentage = output.textContent / 100;
+    output.textContent = Number(percentage.toFixed(8));
 
     if (check == false) numArr = [output.textContent];
 }
@@ -98,6 +103,11 @@ const getOutput = () => {
     if (!numArr.length || input.textContent.includes('=')) return;
 
     numArr.push(output.textContent);
+
+    if (num[num.length - 1] == '.') {
+        num = num.slice(0, [num.length - 1]);
+        output.textContent = num;
+    }
 
     input.textContent += ` ${output.textContent} =`;
     output.textContent = operate(op);
@@ -114,6 +124,7 @@ const reset = () => {
     opArr = [];
     numArr = [];
     op, num = '';
+    key = '';
     output.textContent = '0'; 
     input.style.visibility = 'hidden';
     error.style.display = 'none';
@@ -126,3 +137,38 @@ plusMinus.addEventListener('click', getSign);
 percent.addEventListener('click', getPercent);
 equals.addEventListener('click', getOutput);
 clear.addEventListener('click', reset);
+
+// keyboard support
+const getKey = (e) => {
+    key = e.shiftKey ? document.querySelector(`button[data-key="${e.keyCode} sh"]`) 
+        : document.querySelector(`button[data-key="${e.keyCode}"]`);
+
+    if (!key) return;
+
+    key.className == 'number' ? getNumber() 
+        : key.className == 'operator' ? getOperator() 
+        : key.id == 'decimal' ? getDecimal() 
+        : key.id == 'percent' ? getPercent() 
+        : key.id == 'equals' ? getOutput()
+        : reset(); 
+
+    if (key.id == 'equals') {
+        equals.style.boxShadow = 'none';
+        equals.style.border = 'none';
+    }
+
+    if (key.classList) key.classList.add('active');
+
+    event.preventDefault();
+
+    buttons.forEach(btn => {
+        btn.addEventListener('transitionend', () => btn.classList.remove('active'));
+    });
+
+    equals.addEventListener('transitionend', () => {
+        equals.style.boxShadow = 'var(--equals-shadow)';
+        equals.style.borderTop = '3px solid var(--light-orange)';
+    });
+}
+
+window.addEventListener('keydown', getKey);

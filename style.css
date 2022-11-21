@@ -4,11 +4,15 @@
 }
 
 :root {
+    --main-white: #faf7f9;
     --main-gray: #EBEBEB;
     --dark-gray: #7b7b7c;
     --dark: #353535;
-    --main-white: #faf7f9;
-    --orange: #ED802E;
+    --orange: #ed802e;
+    --light-orange: #fd8931;
+    --button-shadow: 0 3px 0 #7f7f7f26, 0 8px 6px #8c8c8c33;
+    --container-shadow: 0 4px 0 #c0c0c0, 0 4px 8px 10px #8a5c2833;
+    --equals-shadow: 0 3px 0 #be6928e6, 0 8px 6px #8c8c8c66;
 }
 
 body {
@@ -29,27 +33,28 @@ button {
     color: var(--dark-gray);
     background: var(--main-white);
     border: none;
-    border-top: 2px solid white;
+    border-top: 3px solid white;
     border-radius: 10px;
-    box-shadow: 0 3px 0 rgba(127, 127, 127, 0.15), 0 8px 6px rgba(140, 140, 140, 0.2); ;
+    box-shadow: var(--button-shadow);
+    transition: all 80ms ease-out;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 50ms ease-in;
 }
 
-button:active, #equals:active {
+button:active, #equals:active, .active {
+    border: none;
     box-shadow: none;
 }
 
 /* container */
 .container {
     width: 375px;
-    margin: 10em auto;
+    margin: 9em auto;
     padding: 45px 25px;
     background: var(--main-gray);
-    box-shadow: 0 0 8px 13px rgba(138, 92, 40, 0.1);
     border-radius: 30px;
+    box-shadow: var(--container-shadow);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,9 +63,9 @@ button:active, #equals:active {
 /* display */
 #display {
     width: 375px;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
+    color: var(--dark); 
     text-align: right;
-    color: var(--dark);
     overflow-wrap: break-word;
 }
 
@@ -78,8 +83,8 @@ button:active, #equals:active {
 /* grid */
 #buttons {
     display: grid;
-    gap: 25px;
     grid-template: repeat(5, 7.5em) / repeat(4, 7.5em);
+    gap: 25px;
 }
 
 .operator {
@@ -102,10 +107,11 @@ button:active, #equals:active {
     grid-row-start: 4;
 }
 
-#equals{
-    box-shadow: 0 3px 0 rgba(186, 93, 23, 0.5) , 0 8px 6px rgba(124, 93, 71, 0.3);
+#equals {
     color: white;
     background: var(--orange);
+    border-top: 3px solid var(--light-orange);
+    box-shadow: var(--equals-shadow);
     grid-area: 5 / 3 / 5 / span 2;
 }
 
