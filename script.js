@@ -6,7 +6,7 @@ const operators = document.querySelectorAll('.operator'),
       decimal = document.querySelector('#decimal'),
       plusMinus = document.querySelector('#plus-minus'),
       percent = document.querySelector('#percent'),
-      buttons = document.querySelectorAll('#buttons > button');
+      buttons = document.querySelectorAll('button');
 
 const clear = document.querySelector('#clear'),
       equals = document.querySelector('#equals');
@@ -43,15 +43,13 @@ const operate = (op) => {
 }
 
 const getOperator = (e) => {
-    const target = key ? key : e.target;
-
     if (check == true) numArr.push(output.textContent);
 
-    op = target.value;
+    op = e.target.value;
     opArr.push(op);
 
     output.textContent = (opArr.length >= 2) ? operate(opArr[opArr.length - 2]) : operate(op);
-    input.textContent = `${output.textContent} ${target.textContent}`;
+    input.textContent = `${output.textContent} ${e.target.textContent}`;
     input.style.visibility = 'visible';
 
     numArr = [output.textContent];
@@ -65,7 +63,7 @@ const getOperator = (e) => {
 const getNumber = (e) => {
     if (check == false) numArr = [];
 
-    num += key ? key.textContent : e.target.textContent; 
+    num += e.target.textContent; 
     output.textContent = num;
 
     check = true;
@@ -124,7 +122,6 @@ const reset = () => {
     opArr = [];
     numArr = [];
     op, num = '';
-    key = '';
     output.textContent = '0'; 
     input.style.visibility = 'hidden';
     error.style.display = 'none';
@@ -145,30 +142,47 @@ const getKey = (e) => {
 
     if (!key) return;
 
-    key.className == 'number' ? getNumber() 
-        : key.className == 'operator' ? getOperator() 
-        : key.id == 'decimal' ? getDecimal() 
-        : key.id == 'percent' ? getPercent() 
-        : key.id == 'equals' ? getOutput()
-        : reset(); 
-
-    if (key.id == 'equals') {
-        equals.style.boxShadow = 'none';
-        equals.style.border = 'none';
+    if (key.className == 'number') {
+        if (check == false) numArr = [];
+    
+        num += key.textContent; 
+        output.textContent = num;
+    
+        check = true;
+    
+        console.log(`number : ${output.textContent}`);
     }
 
-    if (key.classList) key.classList.add('active');
+    if (key.className == 'operator') {
+        if (check == true) numArr.push(output.textContent);
 
-    event.preventDefault();
+        op = key.value;
+        opArr.push(op);
 
-    buttons.forEach(btn => {
-        btn.addEventListener('transitionend', () => btn.classList.remove('active'));
-    });
+        output.textContent = (opArr.length >= 2) ? operate(opArr[opArr.length - 2]) : operate(op);
+        input.textContent = `${output.textContent} ${key.textContent}`;
+        input.style.visibility = 'visible';
 
-    equals.addEventListener('transitionend', () => {
-        equals.style.boxShadow = 'var(--equals-shadow)';
-        equals.style.borderTop = '3px solid var(--light-orange)';
-    });
+        numArr = [output.textContent];
+        check = true;
+        num = '';
+
+        console.log(`operator : ${op}`);
+        console.log(opArr);
+    }
+
+    if (key.id == 'decimal') getDecimal();
+    if (key.id == 'percent') getPercent();
+    if (key.id == 'clear') reset();
+    if (key.id == 'equals') getOutput();
+
+    key.classList.add('active');
+
+    e.preventDefault();
 }
 
 window.addEventListener('keydown', getKey);
+
+buttons.forEach(btn => {
+    btn.addEventListener('transitionend', () => btn.classList.remove('active'));
+});

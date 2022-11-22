@@ -43,7 +43,7 @@ button {
 }
 
 button:active, #equals:active, .active {
-    border: none;
+    border-width: 1px;
     box-shadow: none;
 }
 
@@ -112,6 +112,7 @@ button:active, #equals:active, .active {
     background: var(--orange);
     border-top: 3px solid var(--light-orange);
     box-shadow: var(--equals-shadow);
+
     grid-area: 5 / 3 / 5 / span 2;
 }
 
