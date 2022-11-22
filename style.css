@@ -3,22 +3,25 @@
     src: url(fonts/SourceSansPro-Regular.otf);
 }
 
+* {
+    transition: all 70ms ease-out;
+}
+
 :root {
-    --main-white: #faf7f9;
-    --main-gray: #EBEBEB;
-    --dark-gray: #7b7b7c;
-    --dark: #353535;
-    --orange: #ed802e;
-    --light-orange: #fd8931;
-    --button-shadow: 0 3px 0 #7f7f7f26, 0 8px 6px #8c8c8c33;
-    --container-shadow: 0 4px 0 #c0c0c0, 0 4px 8px 10px #8a5c2833;
-    --equals-shadow: 0 3px 0 #be6928e6, 0 8px 6px #8c8c8c66;
+    --btn-background: #faf7f9;
+    --cont-background: #EBEBEB;
+    --color-one: #919191;
+    --color-two: #757576;
+    --color-three: #23313B;
+    --btn-shadow: 127, 127, 127;
+    --cont-shadow-one: 192, 192, 192;
+    --cont-shadow-two: 138, 92, 40;
+    --eq-shadow: 140, 140, 140;
 }
 
 body {
     font-size: 10px;
-    color: white;
-    background: linear-gradient(135deg,#FFB178 55%, #F5A66B 45%)
+    background: linear-gradient(135deg,#FFB178 55%, #F5A66B 45%);
 }
 
 body, button {
@@ -30,13 +33,12 @@ body, button {
 /* button styling */
 button {
     font-size: 3em;
-    color: var(--dark-gray);
-    background: var(--main-white);
+    color: var(--color-one);
+    background: var(--btn-background);
     border: none;
-    border-top: 3px solid white;
-    border-radius: 10px;
-    box-shadow: var(--button-shadow);
-    transition: all 80ms ease-out;
+    border-top: 2px solid white;
+    border-radius: 12px;
+    box-shadow: 0 3px 0 rgba(var(--btn-shadow), 0.15), 0 8px 6px rgba(var(--btn-shadow), 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,14 +49,18 @@ button:active, #equals:active, .active {
     box-shadow: none;
 }
 
+.operator, #clear, #percent, #plus-minus {
+    color: var(--color-two);
+}
+
 /* container */
 .container {
     width: 375px;
-    margin: 9em auto;
+    margin: 7em auto;
     padding: 45px 25px;
-    background: var(--main-gray);
+    background: var(--cont-background);
     border-radius: 30px;
-    box-shadow: var(--container-shadow);
+    box-shadow: 0 4px 0 rgba(var(--cont-shadow-one), 1), 0 4px 8px 10px rgba(var(--cont-shadow-two), 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,7 +70,7 @@ button:active, #equals:active, .active {
 #display {
     width: 375px;
     margin-bottom: 20px;
-    color: var(--dark); 
+    color: var(--color-three);
     text-align: right;
     overflow-wrap: break-word;
 }
@@ -72,7 +78,7 @@ button:active, #equals:active, .active {
 #display > div:first-of-type {
     margin-right: 2px;
     font-size: 2.3em;
-    color: var(--dark-gray);
+    color: var(--color-one);
     visibility: hidden;
 }
 
@@ -108,18 +114,28 @@ button:active, #equals:active, .active {
 }
 
 #equals {
-    color: white;
-    background: var(--orange);
-    border-top: 3px solid var(--light-orange);
-    box-shadow: var(--equals-shadow);
-
+    color: #faf7f9;
+    background: #ed802e;
+    border-top: 2px solid #fd8931;
+    box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 7px 5px rgba(var(--eq-shadow), 0.4);
     grid-area: 5 / 3 / 5 / span 2;
 }
 
-/* error */
 #error {
     font-size:  2em;
     color: red;
     text-align: center;
     display: none;
+}
+
+#theme-picker {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+label {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
 }

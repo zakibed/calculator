@@ -6,12 +6,18 @@ const operators = document.querySelectorAll('.operator'),
       decimal = document.querySelector('#decimal'),
       plusMinus = document.querySelector('#plus-minus'),
       percent = document.querySelector('#percent'),
-      buttons = document.querySelectorAll('button');
+      buttons = document.querySelectorAll('button:not(#equals)');
 
 const clear = document.querySelector('#clear'),
       equals = document.querySelector('#equals');
       
 const error = document.querySelector('#error');
+
+const root = document.querySelector(':root'),
+      body = document.querySelector('body'),
+      inputs = document.querySelectorAll('input'),
+      defaultTheme = document.querySelector('input[value="default"]'),
+      darkTheme = document.querySelector('input[value="dark"]');
 
 let check = true;
 let opArr = [];
@@ -134,6 +140,47 @@ plusMinus.addEventListener('click', getSign);
 percent.addEventListener('click', getPercent);
 equals.addEventListener('click', getOutput);
 clear.addEventListener('click', reset);
+
+// set theme
+defaultTheme.checked = true;
+
+inputs.forEach(input => {
+    input.onchange = () => {
+        const setStyle = (v, val) => root.style.setProperty(v, val);
+
+        if (defaultTheme.checked == true) {
+            buttons.forEach(btn => btn.style.borderColor = 'white');
+
+            body.style.background = 'linear-gradient(135deg,#FFB178 55%, #F5A66B 45%)';
+            body.style.color = 'black';
+
+            setStyle('--btn-background', '#faf7f9');
+            setStyle('--cont-background', '#EBEBEB');
+            setStyle('--color-one', '#919191');
+            setStyle('--color-two', '#757576');
+            setStyle('--color-three', '#23313B');
+            setStyle('--btn-shadow', '127, 127, 127');
+            setStyle('--cont-shadow-one', '192, 192, 192');
+            setStyle('--cont-shadow-two', '138, 92, 40');
+            setStyle('--eq-shadow', '140, 140, 140');
+        } else {
+            buttons.forEach(btn => btn.style.borderColor = '#2c3e41');
+            
+            body.style.background = 'linear-gradient(135deg, #23303c 55%, #1f2934 45%)';
+            body.style.color = 'white';
+
+            setStyle('--btn-background', '#243441');
+            setStyle('--cont-background', '#243441');
+            setStyle('--color-one', '#738390');
+            setStyle('--color-two', '#ed802e');
+            setStyle('--color-three', '#faf7f9');
+            setStyle('--btn-shadow', '9, 15, 19');
+            setStyle('--eq-shadow', '9, 15, 19');
+            setStyle('--cont-shadow-one', '21, 30, 37');
+            setStyle('--cont-shadow-two', '9, 15, 19');
+        }
+    }
+});
 
 // keyboard support
 const getKey = (e) => {
