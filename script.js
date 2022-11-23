@@ -16,8 +16,7 @@ const error = document.querySelector('#error');
 const root = document.querySelector(':root'),
       body = document.querySelector('body'),
       inputs = document.querySelectorAll('input'),
-      defaultTheme = document.querySelector('input[value="default"]'),
-      darkTheme = document.querySelector('input[value="dark"]');
+      theme = document.querySelector('input[value="default"]');
 
 let check = true;
 let opArr = [];
@@ -141,14 +140,14 @@ percent.addEventListener('click', getPercent);
 equals.addEventListener('click', getOutput);
 clear.addEventListener('click', reset);
 
-// set theme
-defaultTheme.checked = true;
+// select theme
+theme.checked = true;
 
 inputs.forEach(input => {
     input.onchange = () => {
         const setColor = (v, val) => root.style.setProperty(v, val);
 
-        if (defaultTheme.checked == true) {
+        if (theme.checked == true) {
             buttons.forEach(btn => btn.style.borderColor = 'white');
 
             body.style.background = 'linear-gradient(135deg,#FFB178 55%, #F5A66B 45%)';
