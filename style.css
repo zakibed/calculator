@@ -47,24 +47,16 @@ button {
     background: var(--btn-background);
     border: none;
     border-top: 2px solid white;
-    border-radius: 12px;
-    -webkit-box-shadow: 0 3px 0 rgba(var(--btn-shadow), 0.15), 0 8px 6px rgba(var(--btn-shadow), 0.2);
-            box-shadow: 0 3px 0 rgba(var(--btn-shadow), 0.15), 0 8px 6px rgba(var(--btn-shadow), 0.2);
-    display: -webkit-box;
-    display: -ms-flexbox;
+    border-radius: 10px;
+    box-shadow: 0 3px 0 rgba(127, 127, 127, 0.15), 0 8px 6px rgba(140, 140, 140, 0.2); ;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    justify-content: center;
+    align-items: center;
+    transition: all 50ms ease-in;
 }
 
-button:active, #equals:active, .active {
-    border-width: 1px;
-    -webkit-box-shadow: none;
-            box-shadow: none;
+button:active, #equals:active {
+    box-shadow: none;
 }
 
 .operator, #clear, #percent, #plus-minus {
@@ -74,15 +66,11 @@ button:active, #equals:active, .active {
 /* container */
 .container {
     width: 375px;
-    margin: 0 auto;
-    margin-top: 5em;
+    margin: 10em auto;
     padding: 45px 25px;
-    background: var(--cont-background);
+    background: var(--main-gray);
+    box-shadow: 0 0 8px 13px rgba(138, 92, 40, 0.1);
     border-radius: 30px;
-    -webkit-box-shadow: 0 4px 0 rgba(var(--cont-shadow-one), 1), 0 4px 8px 10px rgba(var(--cont-shadow-two), 0.2);
-            box-shadow: 0 4px 0 rgba(var(--cont-shadow-one), 1), 0 4px 8px 10px rgba(var(--cont-shadow-two), 0.2);
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -96,9 +84,9 @@ button:active, #equals:active, .active {
 /* display */
 #display {
     width: 375px;
-    margin-bottom: 20px;
-    color: var(--color-three);
+    margin-bottom: 20px; 
     text-align: right;
+    color: var(--dark);
     overflow-wrap: break-word;
 }
 
@@ -117,46 +105,34 @@ button:active, #equals:active, .active {
 #buttons {
     display: -ms-grid;
     display: grid;
-    -ms-grid-rows: 7.5em 25px 7.5em 25px 7.5em 25px 7.5em 25px 7.5em;
-    -ms-grid-columns: 7.5em 25px 7.5em 25px 7.5em 25px 7.5em;
-        grid-template: repeat(5, 7.5em) / repeat(4, 7.5em);
     gap: 25px;
+    grid-template: repeat(5, 7.5em) / repeat(4, 7.5em);
 }
 
 .operator {
-    -ms-grid-column: 4;
-        grid-column-start: 4;
+    grid-column-start: 4;
 }
 
 #divide {
-    -ms-grid-row: 1;
-        grid-row-start: 1;
+    grid-row-start: 1;
 }
 
 #multiply {
-    -ms-grid-row: 2;
-        grid-row-start: 2;
+    grid-row-start: 2;
 }
 
 #subtract {
-    -ms-grid-row: 3;
-        grid-row-start: 3;
+    grid-row-start: 3;
 }
 
 #add {
-    -ms-grid-row: 4;
-        grid-row-start: 4;
+    grid-row-start: 4;
 }
 
-#equals {
-    color: #faf7f9;
-    background: #ed802e;
-    border-top: 2px solid #fd8931;
-    -webkit-box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 7px 5px rgba(var(--eq-shadow), 0.4);
-            box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 7px 5px rgba(var(--eq-shadow), 0.4);
-    -ms-grid-row: 5;
-    -ms-grid-column: 3;
-    -ms-grid-column-span: 2;
+#equals{
+    box-shadow: 0 3px 0 rgba(186, 93, 23, 0.5) , 0 8px 6px rgba(124, 93, 71, 0.3);
+    color: white;
+    background: var(--orange);
     grid-area: 5 / 3 / 5 / span 2;
 }
 
