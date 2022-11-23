@@ -22,6 +22,7 @@
 body {
     font-size: 10px;
     background: linear-gradient(135deg,#FFB178 55%, #F5A66B 45%);
+    overflow-x: hidden;
 }
 
 body, button {
@@ -143,7 +144,7 @@ label {
     display: inline-block;
     position: relative;
 }
-  
+
 input[type='radio'] {
     display: none;
 }
@@ -158,6 +159,7 @@ label:before {
     display: inline-block;
     position: relative;
     top: 4px;
+    cursor: pointer;
 }
   
 input[type=radio]:checked + label:after {
@@ -170,4 +172,30 @@ input[type=radio]:checked + label:after {
     position: absolute;
     top: 9px;
     left: 10px;
+}
+
+/* footer */
+footer {
+    width: 100%;
+    margin-bottom: 16px;
+    font-size: 1.3rem;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    transition: all 150ms ease-in;
+}
+
+footer > a {
+    padding-bottom: 3px;
+    text-decoration: none;
+    color: var(--color-three);
+    cursor: pointer;
+}
+
+footer span {
+    font-weight: bold;
+}
+
+footer > a:hover {
+    border-bottom: 2px solid var(--color-three);
 }
