@@ -39,12 +39,7 @@ const operate = (op) => {
               : divide(total, num); 
     });
 
-    if (solution == Infinity) {
-        error.style.display = 'block';
-        return 'ERROR';
-    } 
-
-    return Number(solution.toFixed(8));
+    return solution == Infinity ? 'ERROR' : Number(solution.toFixed(8));
 }
 
 const getOperator = (e) => {

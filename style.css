@@ -61,7 +61,8 @@ button:active, #equals:active, .active {
 /* container */
 .container {
     width: 375px;
-    margin: 7em auto;
+    margin: 0 auto;
+    margin-top: 5em;
     padding: 45px 25px;
     background: var(--cont-background);
     border-radius: 30px;
@@ -124,13 +125,6 @@ button:active, #equals:active, .active {
     border-top: 2px solid #fd8931;
     box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 7px 5px rgba(var(--eq-shadow), 0.4);
     grid-area: 5 / 3 / 5 / span 2;
-}
-
-#error {
-    font-size:  2em;
-    color: red;
-    text-align: center;
-    display: none;
 }
 
 /* theme selector */
