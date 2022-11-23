@@ -33,7 +33,7 @@ body, button {
 
 h1 {
     margin: 10px 7px 8px;
-    font-size: 1.3rem;
+    font-size: 20px;
     color: var(--color-three);
 }
 
@@ -62,10 +62,9 @@ button:active, #equals:active, .active {
 
 /* container */
 .container {
-    width: 375px;
-    margin: 0 auto;
-    margin-top: 5em;
-    padding: 45px 25px;
+    width: 37.5em;
+    margin: 5em auto;
+    padding: 4.5em 2.5em;
     background: var(--cont-background);
     border-radius: 30px;
     box-shadow: 0 4px 0 rgba(var(--cont-shadow-one), 1), 0 4px 8px 10px rgba(var(--cont-shadow-two), 0.2);
@@ -76,7 +75,7 @@ button:active, #equals:active, .active {
 
 /* display */
 #display {
-    width: 375px;
+    width: 37.5em;
     margin-bottom: 20px;
     color: var(--color-three);
     text-align: right;
@@ -98,7 +97,7 @@ button:active, #equals:active, .active {
 #buttons {
     display: grid;
     grid-template: repeat(5, 7.5em) / repeat(4, 7.5em);
-    gap: 25px;
+    gap: 2.5em;
 }
 
 .operator {
@@ -140,7 +139,7 @@ button:active, #equals:active, .active {
 }
 
 label {
-    font-size: 1.5em;
+    font-size: 16px;
 }
 
 .radio-input {
@@ -180,12 +179,9 @@ input[type=radio]:checked + label:after {
 
 /* footer */
 footer {
-    width: 100%;
-    margin-bottom: 16px;
-    font-size: 1.3rem;
+    margin-top: 3.5em;
+    font-size: 2.1em;
     text-align: center;
-    position: absolute;
-    bottom: 0;
     transition: all 150ms ease-in;
 }
 
@@ -202,4 +198,46 @@ footer span {
 
 footer > a:hover {
     border-bottom: 2px solid var(--color-three);
+}
+
+@media (max-width: 1200px) {
+    body {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 800px) {
+    body {
+        font-size: 6px;
+    }
+
+    button {
+        border-radius: 9px;
+    }
+
+    .container {
+        border-radius: 22px;
+    }
+}
+
+@media (max-width: 500px) {
+    body {
+        font-size: 4px;
+    }
+
+    button {
+        border-radius: 5px;
+    }
+
+    h1 {
+        font-size: 17px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    .container {
+        border-radius: 16px;
+    }
 }

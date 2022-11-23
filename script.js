@@ -222,8 +222,8 @@ const getKey = (e) => {
     e.preventDefault();
 }
 
-window.addEventListener('keydown', getKey);
-
 buttons.forEach(btn => {
     btn.addEventListener('transitionend', () => btn.classList.remove('active'));
 });
+
+window.addEventListener('keydown', getKey);
