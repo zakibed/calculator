@@ -124,8 +124,8 @@ button:active, #equals:active, .active {
 #equals {
     color: #faf7f9;
     background: #ed802e;
-    border-top: 2px solid #fd8931;
-    box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 7px 5px rgba(var(--eq-shadow), 0.4);
+    border-top: 3px solid #fd8931;
+    box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 8px 6px rgba(var(--eq-shadow), 0.5);
     grid-area: 5 / 3 / 5 / span 2;
 }
 
@@ -155,7 +155,7 @@ input[type='radio'] {
   
 label:before {
     content: "";
-    margin-right: 3px;
+    margin-right: 4px;
     width: 13px;
     height: 13px;
     border: 3px solid var(--color-three);

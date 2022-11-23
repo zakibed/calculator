@@ -149,7 +149,7 @@ inputs.forEach(input => {
             body.style.color = 'black';
 
             setColor('--btn-background', '#faf7f9');
-            setColor('--cont-background', '#EBEBEB');
+            setColor('--cont-background', '#ebebeb');
             setColor('--color-one', '#919191');
             setColor('--color-two', '#757576');
             setColor('--color-three', '#182229');
@@ -160,17 +160,17 @@ inputs.forEach(input => {
         } else {
             buttons.forEach(btn => btn.style.borderColor = '#314352');
 
-            body.style.background = 'linear-gradient(135deg, #23303c 55%, #1f2934 45%)';
+            body.style.background = 'linear-gradient(135deg, #22303a 55%, #1d2831 45%)';
             body.style.color = 'white';
 
-            setColor('--btn-background', '#283947');
+            setColor('--btn-background', '#273846');
             setColor('--cont-background', '#243441');
             setColor('--color-one', '#738390');
             setColor('--color-two', '#ed802e');
             setColor('--color-three', '#faf7f9');
             setColor('--btn-shadow', '9, 15, 19');
             setColor('--eq-shadow', '9, 15, 19');
-            setColor('--cont-shadow-one', '21, 30, 37');
+            setColor('--cont-shadow-one', '29, 43, 43');
             setColor('--cont-shadow-two', '9, 15, 19');
         }
     }
