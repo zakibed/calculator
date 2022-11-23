@@ -4,6 +4,8 @@
 }
 
 * {
+    -webkit-transition: all 70ms ease-out;
+    -o-transition: all 70ms ease-out;
     transition: all 70ms ease-out;
 }
 
@@ -21,6 +23,7 @@
 
 body {
     font-size: 10px;
+    background: -o-linear-gradient(315deg,#FFB178 55%, #F5A66B 45%);
     background: linear-gradient(135deg,#FFB178 55%, #F5A66B 45%);
     overflow-x: hidden;
 }
@@ -32,7 +35,7 @@ body, button {
 }
 
 h1 {
-    margin: 10px 7px 8px;
+    margin: 8px 7px;
     font-size: 1.3rem;
     color: var(--color-three);
 }
@@ -45,15 +48,23 @@ button {
     border: none;
     border-top: 2px solid white;
     border-radius: 12px;
-    box-shadow: 0 3px 0 rgba(var(--btn-shadow), 0.15), 0 8px 6px rgba(var(--btn-shadow), 0.2);
+    -webkit-box-shadow: 0 3px 0 rgba(var(--btn-shadow), 0.15), 0 8px 6px rgba(var(--btn-shadow), 0.2);
+            box-shadow: 0 3px 0 rgba(var(--btn-shadow), 0.15), 0 8px 6px rgba(var(--btn-shadow), 0.2);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 button:active, #equals:active, .active {
     border-width: 1px;
-    box-shadow: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
 }
 
 .operator, #clear, #percent, #plus-minus {
@@ -68,10 +79,18 @@ button:active, #equals:active, .active {
     padding: 45px 25px;
     background: var(--cont-background);
     border-radius: 30px;
-    box-shadow: 0 4px 0 rgba(var(--cont-shadow-one), 1), 0 4px 8px 10px rgba(var(--cont-shadow-two), 0.2);
+    -webkit-box-shadow: 0 4px 0 rgba(var(--cont-shadow-one), 1), 0 4px 8px 10px rgba(var(--cont-shadow-two), 0.2);
+            box-shadow: 0 4px 0 rgba(var(--cont-shadow-one), 1), 0 4px 8px 10px rgba(var(--cont-shadow-two), 0.2);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 /* display */
@@ -96,36 +115,48 @@ button:active, #equals:active, .active {
 
 /* grid */
 #buttons {
+    display: -ms-grid;
     display: grid;
-    grid-template: repeat(5, 7.5em) / repeat(4, 7.5em);
+    -ms-grid-rows: 7.5em 25px 7.5em 25px 7.5em 25px 7.5em 25px 7.5em;
+    -ms-grid-columns: 7.5em 25px 7.5em 25px 7.5em 25px 7.5em;
+        grid-template: repeat(5, 7.5em) / repeat(4, 7.5em);
     gap: 25px;
 }
 
 .operator {
-    grid-column-start: 4;
+    -ms-grid-column: 4;
+        grid-column-start: 4;
 }
 
 #divide {
-    grid-row-start: 1;
+    -ms-grid-row: 1;
+        grid-row-start: 1;
 }
 
 #multiply {
-    grid-row-start: 2;
+    -ms-grid-row: 2;
+        grid-row-start: 2;
 }
 
 #subtract {
-    grid-row-start: 3;
+    -ms-grid-row: 3;
+        grid-row-start: 3;
 }
 
 #add {
-    grid-row-start: 4;
+    -ms-grid-row: 4;
+        grid-row-start: 4;
 }
 
 #equals {
     color: #faf7f9;
     background: #ed802e;
     border-top: 2px solid #fd8931;
-    box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 7px 5px rgba(var(--eq-shadow), 0.4);
+    -webkit-box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 7px 5px rgba(var(--eq-shadow), 0.4);
+            box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 7px 5px rgba(var(--eq-shadow), 0.4);
+    -ms-grid-row: 5;
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 2;
     grid-area: 5 / 3 / 5 / span 2;
 }
 
@@ -134,9 +165,15 @@ button:active, #equals:active, .active {
     margin: 0;
     padding: 0;
     text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 label {
@@ -186,6 +223,8 @@ footer {
     text-align: center;
     position: absolute;
     bottom: 0;
+    -webkit-transition: all 150ms ease-in;
+    -o-transition: all 150ms ease-in;
     transition: all 150ms ease-in;
 }
 
