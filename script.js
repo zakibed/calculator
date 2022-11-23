@@ -146,7 +146,7 @@ defaultTheme.checked = true;
 
 inputs.forEach(input => {
     input.onchange = () => {
-        const setStyle = (v, val) => root.style.setProperty(v, val);
+        const setColor = (v, val) => root.style.setProperty(v, val);
 
         if (defaultTheme.checked == true) {
             buttons.forEach(btn => btn.style.borderColor = 'white');
@@ -154,30 +154,30 @@ inputs.forEach(input => {
             body.style.background = 'linear-gradient(135deg,#FFB178 55%, #F5A66B 45%)';
             body.style.color = 'black';
 
-            setStyle('--btn-background', '#faf7f9');
-            setStyle('--cont-background', '#EBEBEB');
-            setStyle('--color-one', '#919191');
-            setStyle('--color-two', '#757576');
-            setStyle('--color-three', '#23313B');
-            setStyle('--btn-shadow', '127, 127, 127');
-            setStyle('--cont-shadow-one', '192, 192, 192');
-            setStyle('--cont-shadow-two', '138, 92, 40');
-            setStyle('--eq-shadow', '140, 140, 140');
+            setColor('--btn-background', '#faf7f9');
+            setColor('--cont-background', '#EBEBEB');
+            setColor('--color-one', '#919191');
+            setColor('--color-two', '#757576');
+            setColor('--color-three', '#182229');
+            setColor('--btn-shadow', '127, 127, 127');
+            setColor('--cont-shadow-one', '192, 192, 192');
+            setColor('--cont-shadow-two', '138, 92, 40');
+            setColor('--eq-shadow', '140, 140, 140');
         } else {
-            buttons.forEach(btn => btn.style.borderColor = '#2c3e41');
-            
+            buttons.forEach(btn => btn.style.borderColor = '#314352');
+
             body.style.background = 'linear-gradient(135deg, #23303c 55%, #1f2934 45%)';
             body.style.color = 'white';
 
-            setStyle('--btn-background', '#243441');
-            setStyle('--cont-background', '#243441');
-            setStyle('--color-one', '#738390');
-            setStyle('--color-two', '#ed802e');
-            setStyle('--color-three', '#faf7f9');
-            setStyle('--btn-shadow', '9, 15, 19');
-            setStyle('--eq-shadow', '9, 15, 19');
-            setStyle('--cont-shadow-one', '21, 30, 37');
-            setStyle('--cont-shadow-two', '9, 15, 19');
+            setColor('--btn-background', '#283947');
+            setColor('--cont-background', '#243441');
+            setColor('--color-one', '#738390');
+            setColor('--color-two', '#ed802e');
+            setColor('--color-three', '#faf7f9');
+            setColor('--btn-shadow', '9, 15, 19');
+            setColor('--eq-shadow', '9, 15, 19');
+            setColor('--cont-shadow-one', '21, 30, 37');
+            setColor('--cont-shadow-two', '9, 15, 19');
         }
     }
 });

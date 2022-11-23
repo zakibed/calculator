@@ -8,11 +8,20 @@
         <script src="script.js" defer></script>
     </head>
     <body>
-        <div id="theme-picker">
-            <h1>Theme :</h1>
-            <label><input type="radio" name="theme" value="default">Default</label>
-            <label><input type="radio" name="theme" value="dark">Dark</label>
+        <div id="theme">
+            <h1>Theme</h1>
+
+            <div class="radio-input">
+                <input type="radio" id="theme-one" name="theme" value="default">
+                <label for="theme-one">Default</label>
+            </div>
+
+            <div class="radio-input">
+                <input type="radio" id="theme-two" name="theme" value="dark">
+                <label for="theme-two">Dark</label>
+            </div>
         </div>
+        
 
         <div class="container">
             <div id="display">
