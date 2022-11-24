@@ -20,7 +20,8 @@
 }
 
 body {
-    font-size: 10px;
+    height: 100%;
+    font-size: 9px;
     background: linear-gradient(135deg,#FFB178 55%, #F5A66B 45%);
     overflow-x: hidden;
 }
@@ -63,7 +64,7 @@ button:active, #equals:active, .active {
 /* container */
 .container {
     width: 37.5em;
-    margin: 5em auto;
+    margin: 5em auto 2em;
     padding: 4.5em 2.5em;
     background: var(--cont-background);
     border-radius: 30px;
@@ -75,7 +76,7 @@ button:active, #equals:active, .active {
 
 /* display */
 #display {
-    width: 37.5em;
+    width: 100%;
     margin-bottom: 20px;
     color: var(--color-three);
     text-align: right;
@@ -179,7 +180,6 @@ input[type=radio]:checked + label:after {
 
 /* footer */
 footer {
-    margin-top: 3.5em;
     font-size: 2.1em;
     text-align: center;
     transition: all 150ms ease-in;
@@ -203,6 +203,15 @@ footer > a:hover {
 @media (max-width: 1200px) {
     body {
         font-size: 8px;
+    }
+
+    .container {
+        width: 36.5em;
+        border-radius: 22px;
+    }
+
+    #buttons {
+        gap: 2.3em;
     }
 }
 
@@ -238,6 +247,11 @@ footer > a:hover {
     }
 
     .container {
+        width: 35em;
         border-radius: 16px;
+    }
+
+    #buttons {
+        gap: 2em;
     }
 }
