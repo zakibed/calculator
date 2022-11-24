@@ -33,7 +33,7 @@ body, button {
 }
 
 h1 {
-    margin: 10px 7px 8px;
+    margin: 7px 7px 7px;
     font-size: 20px;
     color: var(--color-three);
 }
@@ -140,6 +140,7 @@ button:active, #equals:active, .active {
 }
 
 label {
+    color: var(--color-three);
     font-size: 16px;
 }
 
