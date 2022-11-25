@@ -170,7 +170,7 @@ inputs.forEach(input => {
             setColor('--color-three', '#faf7f9');
             setColor('--btn-shadow', '9, 15, 19');
             setColor('--eq-shadow', '9, 15, 19');
-            setColor('--cont-shadow-one', '29, 43, 43');
+            setColor('--cont-shadow-one', '33, 46, 57');
             setColor('--cont-shadow-two', '9, 15, 19');
         }
     }

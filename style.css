@@ -21,7 +21,7 @@
 
 body {
     height: 100vh;
-    font-size: 8px;
+    font-size: 9px;
     background: linear-gradient(135deg,#FFB178 55%, #F5A66B 45%);
     overflow-x: hidden;
 }
@@ -64,7 +64,7 @@ button:active, #equals:active, .active {
 /* container */
 .container {
     width: 37.5em;
-    margin: 2em auto 3em;
+    margin: 3em auto;
     padding: 4.5em 2.5em;
     background: var(--cont-background);
     border-radius: 30px;
@@ -131,8 +131,6 @@ button:active, #equals:active, .active {
 
 /* theme selector */
 #theme {
-    margin: 0;
-    padding: 0;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -221,7 +219,7 @@ footer > a:hover {
 
 @media (max-width: 500px) {
     body {
-        font-size: 4px;
+        font-size: 5px;
     }
 
     button {
