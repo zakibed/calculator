@@ -7,7 +7,7 @@
     transition: all 70ms ease-out;
 }
 
-:root {
+:root.light {
     --btn-background: #faf7f9;
     --cont-background: #EBEBEB;
     --color-one: #919191;
@@ -17,6 +17,18 @@
     --cont-shadow-one: 192, 192, 192;
     --cont-shadow-two: 138, 92, 40;
     --eq-shadow: 140, 140, 140;
+}
+
+:root.dark {
+    --btn-background: #273846;
+    --cont-background: #243441;
+    --color-one: #738390;
+    --color-two: #ed802e;
+    --color-three: #faf7f9;
+    --btn-shadow: 9, 15, 19;
+    --cont-shadow-one: 33, 46, 57;
+    --cont-shadow-two: 9, 15, 19;
+    --eq-shadow: 9, 15, 19;
 }
 
 body {
@@ -218,12 +230,9 @@ footer > a:hover {
 }
 
 @media (max-width: 500px) {
-    body {
-        font-size: 5px;
-    }
-
     button {
         border-radius: 5px;
+        box-shadow: 0 2px 0 rgba(var(--btn-shadow), 0.15), 0 6px 4px rgba(var(--btn-shadow), 0.2);
     }
 
     h1 {
@@ -241,5 +250,9 @@ footer > a:hover {
 
     #buttons {
         gap: 1.9em;
+    }
+
+    #equals {
+        box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 6px 4px rgba(var(--eq-shadow), 0.5);
     }
 }

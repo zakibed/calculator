@@ -137,41 +137,24 @@ clear.addEventListener('click', reset);
 
 // select theme
 theme.checked = true;
+root.className = 'light';
 
 inputs.forEach(input => {
     input.onchange = () => {
-        const setColor = (v, val) => root.style.setProperty(v, val);
-
         if (theme.checked == true) {
             buttons.forEach(btn => btn.style.borderColor = 'white');
 
             body.style.background = 'linear-gradient(135deg,#FFB178 55%, #F5A66B 45%)';
             body.style.color = 'black';
 
-            setColor('--btn-background', '#faf7f9');
-            setColor('--cont-background', '#ebebeb');
-            setColor('--color-one', '#919191');
-            setColor('--color-two', '#757576');
-            setColor('--color-three', '#182229');
-            setColor('--btn-shadow', '127, 127, 127');
-            setColor('--cont-shadow-one', '192, 192, 192');
-            setColor('--cont-shadow-two', '138, 92, 40');
-            setColor('--eq-shadow', '140, 140, 140');
+            root.className = 'light';
         } else {
             buttons.forEach(btn => btn.style.borderColor = '#314352');
 
             body.style.background = 'linear-gradient(135deg, #22303a 55%, #1d2831 45%)';
             body.style.color = 'white';
 
-            setColor('--btn-background', '#273846');
-            setColor('--cont-background', '#243441');
-            setColor('--color-one', '#738390');
-            setColor('--color-two', '#ed802e');
-            setColor('--color-three', '#faf7f9');
-            setColor('--btn-shadow', '9, 15, 19');
-            setColor('--eq-shadow', '9, 15, 19');
-            setColor('--cont-shadow-one', '33, 46, 57');
-            setColor('--cont-shadow-two', '9, 15, 19');
+            root.className = 'dark';
         }
     }
 });
