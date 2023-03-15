@@ -1,5 +1,5 @@
 @font-face {
-    font-family: "Source Sans Pro";
+    font-family: 'Source Sans Pro';
     src: url(fonts/SourceSansPro-Regular.otf);
 }
 
@@ -7,9 +7,9 @@
     transition: all 70ms ease-out;
 }
 
-:root.light {
+:root {
     --btn-background: #faf7f9;
-    --cont-background: #EBEBEB;
+    --cont-background: #ebebeb;
     --color-one: #919191;
     --color-two: #757576;
     --color-three: #182229;
@@ -34,14 +34,14 @@
 body {
     height: 100vh;
     font-size: 9px;
-    background: linear-gradient(135deg,#FFB178 55%, #F5A66B 45%);
+    background: linear-gradient(135deg, #ffb178 55%, #f5a66b 45%);
     overflow-x: hidden;
 }
 
-body, button {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 
-        'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 
-        'Helvetica Neue', sans-serif;
+body,
+button {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+        'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 h1 {
@@ -64,12 +64,17 @@ button {
     align-items: center;
 }
 
-button:active, #equals:active, .active {
+button:active,
+#equals:active,
+.active {
     border-width: 1px;
     box-shadow: none;
 }
 
-.operator, #clear, #percent, #plus-minus {
+.operator,
+#clear,
+#percent,
+#plus-minus {
     color: var(--color-two);
 }
 
@@ -163,9 +168,9 @@ label {
 input[type='radio'] {
     display: none;
 }
-  
+
 label:before {
-    content: "";
+    content: '';
     margin-right: 4px;
     width: 10px;
     height: 10px;
@@ -178,7 +183,7 @@ label:before {
     cursor: pointer;
 }
 
-input[type=radio]:checked + label:before {
+input[type='radio']:checked + label:before {
     background: var(--color-three);
 }
 

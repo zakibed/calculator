@@ -1,27 +1,28 @@
-const input = document.querySelector('#display > div:first-of-type'),
-      output = document.querySelector('#display > div:last-of-type');
+const input = document.querySelector('#display > div:first-of-type');
+const output = document.querySelector('#display > div:last-of-type');
 
-const operators = document.querySelectorAll('.operator'),
-      numbers = document.querySelectorAll('.number'),
-      decimal = document.querySelector('#decimal'),
-      plusMinus = document.querySelector('#plus-minus'),
-      percent = document.querySelector('#percent'),
-      buttons = document.querySelectorAll('button:not(#equals)');
+const operators = document.querySelectorAll('.operator');
+const numbers = document.querySelectorAll('.number');
+const decimal = document.querySelector('#decimal');
+const plusMinus = document.querySelector('#plus-minus');
+const percent = document.querySelector('#percent');
+const buttons = document.querySelectorAll('button:not(#equals)');
 
-const clear = document.querySelector('#clear'),
-      equals = document.querySelector('#equals');
-      
+const clear = document.querySelector('#clear');
+const equals = document.querySelector('#equals');
+
 const error = document.querySelector('#error');
 
-const root = document.querySelector(':root'),
-      body = document.querySelector('body'),
-      inputs = document.querySelectorAll('input'),
-      theme = document.querySelector('input[value="default"]');
+const root = document.querySelector(':root');
+const body = document.querySelector('body');
+const inputs = document.querySelectorAll('input');
+const theme = document.querySelector('input[value="default"]');
 
 let check = true;
 let opArr = [];
 let numArr = [];
-let op, num = '';
+let op;
+const num = '';
 let key;
 
 const add = (a, b) => a + b;
@@ -30,17 +31,17 @@ const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
 const operate = (op) => {
-    numArr = numArr.map(num => Number(num));
+    numArr = numArr.map((n) => Number(n));
 
-    const solution = numArr.reduce((total, num) => { 
-        return op == '+' ? add(total, num) 
-              : op == '-' ? subtract(total, num) 
-              : op == '*' ? multiply(total, num) 
-              : divide(total, num); 
+    const solution = numArr.reduce((a, b) => {
+        if (op === '+') return add(a, b);
+        if (op === '-') return subtract(a, b);
+        if (op === '*') return multiply(a, b);
+        if (op === '/') return divide(a, b);
     });
 
     return solution == Infinity ? 'ERROR' : Number(solution.toFixed(8));
-}
+};
 
 const getOperator = (e) => {
     if (check == true) numArr.push(output.textContent);
@@ -48,7 +49,8 @@ const getOperator = (e) => {
     op = e.target.value;
     opArr.push(op);
 
-    output.textContent = (opArr.length >= 2) ? operate(opArr[opArr.length - 2]) : operate(op);
+    output.textContent =
+        opArr.length >= 2 ? operate(opArr[opArr.length - 2]) : operate(op);
     input.textContent = `${output.textContent} ${e.target.textContent}`;
     input.style.visibility = 'visible';
 
@@ -58,18 +60,18 @@ const getOperator = (e) => {
 
     console.log(`operator : ${op}`);
     console.log(opArr);
-}
+};
 
 const getNumber = (e) => {
     if (check == false) numArr = [];
 
-    num += e.target.textContent; 
+    num += e.target.textContent;
     output.textContent = num;
 
     check = true;
 
     console.log(`number : ${output.textContent}`);
-}
+};
 
 const getDecimal = () => {
     if (!num[0]) num += '0';
@@ -78,7 +80,7 @@ const getDecimal = () => {
         num += '.';
         output.textContent = num;
     }
-}
+};
 
 const getSign = () => {
     if (!output.textContent[0].includes('-')) {
@@ -88,14 +90,14 @@ const getSign = () => {
     }
 
     if (check == false) numArr = [output.textContent];
-}
+};
 
 const getPercent = () => {
     const percentage = output.textContent / 100;
     output.textContent = Number(percentage.toFixed(8));
 
     if (check == false) numArr = [output.textContent];
-}
+};
 
 const getOutput = () => {
     if (!numArr.length || input.textContent.includes('=')) return;
@@ -115,20 +117,20 @@ const getOutput = () => {
     num = '';
 
     console.log(`[result : ${output.textContent}]`);
-}
+};
 
 const reset = () => {
     check = true;
     opArr = [];
     numArr = [];
-    op, num = '';
-    output.textContent = '0'; 
+    op, (num = '');
+    output.textContent = '0';
     input.style.visibility = 'hidden';
     error.style.display = 'none';
-}
+};
 
-operators.forEach(btn => btn.addEventListener('click', getOperator));
-numbers.forEach(btn => btn.addEventListener('click', getNumber));
+operators.forEach((btn) => btn.addEventListener('click', getOperator));
+numbers.forEach((btn) => btn.addEventListener('click', getNumber));
 decimal.addEventListener('click', getDecimal);
 plusMinus.addEventListener('click', getSign);
 percent.addEventListener('click', getPercent);
@@ -139,41 +141,44 @@ clear.addEventListener('click', reset);
 theme.checked = true;
 root.className = 'light';
 
-inputs.forEach(input => {
+inputs.forEach((input) => {
     input.onchange = () => {
         if (theme.checked == true) {
-            buttons.forEach(btn => btn.style.borderColor = 'white');
+            buttons.forEach((btn) => (btn.style.borderColor = 'white'));
 
-            body.style.background = 'linear-gradient(135deg,#FFB178 55%, #F5A66B 45%)';
+            body.style.background =
+                'linear-gradient(135deg,#FFB178 55%, #F5A66B 45%)';
             body.style.color = 'black';
 
             root.className = 'light';
         } else {
-            buttons.forEach(btn => btn.style.borderColor = '#314352');
+            buttons.forEach((btn) => (btn.style.borderColor = '#314352'));
 
-            body.style.background = 'linear-gradient(135deg, #22303a 55%, #1d2831 45%)';
+            body.style.background =
+                'linear-gradient(135deg, #22303a 55%, #1d2831 45%)';
             body.style.color = 'white';
 
             root.className = 'dark';
         }
-    }
+    };
 });
 
 // keyboard support
 const getKey = (e) => {
-    key = e.shiftKey ? document.querySelector(`button[data-key="${e.keyCode} sh"]`) 
+    key = e.shiftKey
+        ? document.querySelector(`button[data-key="${e.keyCode} sh"]`)
         : document.querySelector(`button[data-key="${e.keyCode}"]`);
 
     if (!key) return;
 
     if (key.className == 'number') {
         if (check == false) numArr = [];
-    
-        num += key.textContent; 
+
+        num += key.textContent;
         output.textContent = num;
-    
+
         check = true;
-    
+
         console.log(`number : ${output.textContent}`);
     }
 
@@ -183,7 +188,8 @@ const getKey = (e) => {
         op = key.value;
         opArr.push(op);
 
-        output.textContent = (opArr.length >= 2) ? operate(opArr[opArr.length - 2]) : operate(op);
+        output.textContent =
+            opArr.length >= 2 ? operate(opArr[opArr.length - 2]) : operate(op);
         input.textContent = `${output.textContent} ${key.textContent}`;
         input.style.visibility = 'visible';
 
@@ -203,9 +209,9 @@ const getKey = (e) => {
     key.classList.add('active');
 
     e.preventDefault();
-}
+};
 
-buttons.forEach(btn => {
+buttons.forEach((btn) => {
     btn.addEventListener('transitionend', () => btn.classList.remove('active'));
 });
 
