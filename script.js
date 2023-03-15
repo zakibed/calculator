@@ -22,7 +22,7 @@ let check = true;
 let opArr = [];
 let numArr = [];
 let op;
-const num = '';
+let num = '';
 let key;
 
 const add = (a, b) => a + b;
