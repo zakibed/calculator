@@ -28,15 +28,12 @@ function clearAll() {
 }
 
 function calculate(num1, num2, op) {
-    currentNum = +currentNum;
-    previousNum = +previousNum;
-
     if (op === '+') solution = num1 + num2;
     if (op === '-') solution = num1 - num2;
     if (op === '×') solution = num1 * num2;
     if (op === '÷') solution = num1 / num2;
 
-    solution = Number.isFinite(solution) ? +solution.toFixed(5) : '😵';
+    if (String(solution).length > 9) solution = solution.toPrecision(1);
 }
 
 function getNumber() {
@@ -60,7 +57,7 @@ function getOperator() {
         updateDisplay(solution, `${solution} ${currentOp}`);
         currentNum = solution;
     } else if (equalsClicked || !previousNum) {
-        updateDisplay(currentNum, `${currentNum} ${currentOp}`);
+        updateDisplay(+currentNum, `${+currentNum} ${currentOp}`);
     } else {
         calculate(previousNum, currentNum, previousOp);
         updateDisplay(solution, `${solution} ${currentOp}`);
@@ -72,10 +69,23 @@ function getOperator() {
 }
 
 function getDecimal() {
-    if (mainDisplay.textContent.includes('.')) return;
+    if (
+        mainDisplay.textContent.includes('.') ||
+        mainDisplay.textContent.includes('e')
+    )
+        return;
 
     mainDisplay.append(this.textContent);
     currentNum = mainDisplay.textContent;
+}
+
+function getPercent() {
+    let percentage = currentNum / 100;
+
+    if (String(percentage).length > 9) percentage = percentage.toPrecision(1);
+
+    mainDisplay.textContent = percentage;
+    currentNum = percentage;
 }
 
 function getAnswer() {
@@ -85,11 +95,14 @@ function getAnswer() {
         calculate(previousNum, previousNum, previousOp);
         updateDisplay(
             solution,
-            `${previousNum} ${previousOp} ${previousNum} =`
+            `${+previousNum} ${previousOp} ${+previousNum} =`
         );
     } else {
         calculate(previousNum, currentNum, previousOp);
-        updateDisplay(solution, `${previousNum} ${previousOp} ${currentNum} =`);
+        updateDisplay(
+            solution,
+            `${+previousNum} ${previousOp} ${+currentNum} =`
+        );
     }
 
     equalsClicked = true;
@@ -108,6 +121,7 @@ function removeNumber() {
 numberBtns.forEach((e) => e.addEventListener('click', getNumber));
 operatorBtns.forEach((e) => e.addEventListener('click', getOperator));
 decimalBtn.addEventListener('click', getDecimal);
+percentBtn.addEventListener('click', getPercent);
 equalsBtn.addEventListener('click', getAnswer);
 deleteBtn.addEventListener('click', removeNumber);
 clearBtn.addEventListener('click', clearAll);
