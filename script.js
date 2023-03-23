@@ -7,13 +7,15 @@ const deleteBtn = document.querySelector('#delete');
 const clearBtn = document.querySelector('#clear');
 const percentBtn = document.querySelector('#percent');
 const equalsBtn = document.querySelector('#equals');
+const lightTheme = document.querySelector('#light-theme');
+const root = document.querySelector(':root');
 let operatorClicked = false;
 let equalsClicked = false;
 let currentNum = 0;
 let previousNum = 0;
-let currentOp;
-let previousOp;
-let solution;
+let currentOp = '';
+let previousOp = '';
+let solution = 0;
 
 function updateDisplay(main, top) {
     mainDisplay.textContent = main;
@@ -21,10 +23,10 @@ function updateDisplay(main, top) {
 }
 
 function clearAll() {
-    mainDisplay.textContent = 0;
-    topDisplay.textContent = '';
     previousNum = 0;
     currentNum = 0;
+
+    updateDisplay(0, '');
 }
 
 function calculate(num1, num2, op) {
@@ -55,6 +57,7 @@ function getOperator() {
     if (operatorClicked) {
         calculate(currentNum, currentNum, previousOp);
         updateDisplay(solution, `${solution} ${currentOp}`);
+
         currentNum = solution;
     } else if (equalsClicked || !previousNum) {
         updateDisplay(+currentNum, `${+currentNum} ${currentOp}`);
@@ -69,6 +72,8 @@ function getOperator() {
 }
 
 function getDecimal() {
+    if (operatorClicked || equalsClicked) mainDisplay.textContent = 0;
+
     if (
         mainDisplay.textContent.includes('.') ||
         mainDisplay.textContent.includes('e')
@@ -125,13 +130,24 @@ percentBtn.addEventListener('click', getPercent);
 equalsBtn.addEventListener('click', getAnswer);
 deleteBtn.addEventListener('click', removeNumber);
 clearBtn.addEventListener('click', clearAll);
+
 document.querySelectorAll('button:not(#equals)').forEach((e) =>
     e.addEventListener('click', () => {
         equalsClicked = false;
     })
 );
+
 document.querySelectorAll('button:not(.operator)').forEach((e) =>
     e.addEventListener('click', () => {
         operatorClicked = false;
     })
 );
+
+lightTheme.checked = true;
+root.className = 'light';
+
+document.querySelectorAll('input[type="radio"]').forEach((e) => {
+    e.addEventListener('change', () => {
+        root.className = lightTheme.checked ? 'light' : 'dark';
+    });
+});
