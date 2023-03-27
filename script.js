@@ -162,6 +162,7 @@ document.querySelectorAll('input[type="radio"]').forEach((e) => {
 
 // keyboard support
 document.addEventListener('keydown', (e) => {
+    const key = document.querySelector(`[data-code="${e.key.charCodeAt(0)}"]`);
     const operators = ['+', '-', '*', '/'];
 
     if (!Number.isNaN(+e.key)) getNumber(e.key);
@@ -171,10 +172,15 @@ document.addEventListener('keydown', (e) => {
     if (e.key === '.') getDecimal();
     if (e.key === '%') getPercent();
     if (e.key === '=' || e.key === 'Enter') getAnswer();
-    if (e.key === 'Backspace') removeNumber();
-    if (e.key === 'Delete') clearAll();
+    if (e.key === 'Backspace' && !e.shiftKey) removeNumber();
+    if (e.key === 'Delete' && !e.shiftKey) clearAll();
     if (e.key !== '=' || e.key !== 'Enter') equalsClicked = false;
     if (!operators.includes(e.key)) operatorClicked = false;
 
     e.preventDefault();
+
+    key.classList.add('active');
+    key.addEventListener('transitionend', function () {
+        this.classList.remove('active');
+    });
 });
