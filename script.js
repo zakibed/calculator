@@ -11,11 +11,11 @@ const lightTheme = document.querySelector('#light-theme');
 const root = document.querySelector(':root');
 let operatorClicked = false;
 let equalsClicked = false;
-let currentNum = 0;
-let previousNum = 0;
-let currentOp = '';
-let previousOp = '';
 let solution = 0;
+let previousNum = 0;
+let currentNum = 0;
+let previousOp = '';
+let currentOp = '';
 
 function updateDisplay(main, top) {
     mainDisplay.textContent = main;
@@ -32,13 +32,15 @@ function clearAll() {
 function calculate(num1, num2, op) {
     if (op === '+') solution = num1 + num2;
     if (op === '-') solution = num1 - num2;
-    if (op === '×') solution = num1 * num2;
-    if (op === '÷') solution = num1 / num2;
+    if (op === '×' || op === '*') solution = num1 * num2;
+    if (op === '÷' || op === '/') solution = num1 / num2;
 
     if (String(solution).length > 9) solution = solution.toPrecision(1);
 }
 
-function getNumber() {
+function getNumber(btn) {
+    const btnContent = typeof btn === 'string' ? btn : this.textContent;
+
     if (
         operatorClicked ||
         equalsClicked ||
@@ -47,12 +49,14 @@ function getNumber() {
         mainDisplay.textContent = '';
     }
 
-    mainDisplay.append(this.textContent);
+    mainDisplay.append(btnContent);
     currentNum = +mainDisplay.textContent;
 }
 
-function getOperator() {
-    currentOp = this.textContent;
+function getOperator(btn) {
+    const btnContent = typeof btn === 'string' ? btn : this.textContent;
+
+    currentOp = btnContent;
 
     if (operatorClicked) {
         calculate(currentNum, currentNum, previousOp);
@@ -67,7 +71,7 @@ function getOperator() {
     }
 
     operatorClicked = true;
-    previousOp = this.textContent;
+    previousOp = btnContent;
     previousNum = +mainDisplay.textContent;
 }
 
@@ -80,7 +84,7 @@ function getDecimal() {
     )
         return;
 
-    mainDisplay.append(this.textContent);
+    mainDisplay.append('.');
     currentNum = mainDisplay.textContent;
 }
 
@@ -119,7 +123,10 @@ function getAnswer() {
 function removeNumber() {
     const display = mainDisplay.textContent;
 
-    mainDisplay.textContent = display.length > 1 ? display.slice(0, -1) : 0;
+    mainDisplay.textContent =
+        display.length > 1 && Number.isFinite(+display)
+            ? display.slice(0, -1)
+            : 0;
     currentNum = +mainDisplay.textContent;
 }
 
@@ -143,6 +150,7 @@ document.querySelectorAll('button:not(.operator)').forEach((e) =>
     })
 );
 
+// theme toggle
 lightTheme.checked = true;
 root.className = 'light';
 
@@ -150,4 +158,23 @@ document.querySelectorAll('input[type="radio"]').forEach((e) => {
     e.addEventListener('change', () => {
         root.className = lightTheme.checked ? 'light' : 'dark';
     });
+});
+
+// keyboard support
+document.addEventListener('keydown', (e) => {
+    const operators = ['+', '-', '*', '/'];
+
+    if (!Number.isNaN(+e.key)) getNumber(e.key);
+    if (e.key === '+' || e.key === '-') getOperator(e.key);
+    if (e.key === '*') getOperator('×');
+    if (e.key === '/') getOperator('÷');
+    if (e.key === '.') getDecimal();
+    if (e.key === '%') getPercent();
+    if (e.key === '=' || e.key === 'Enter') getAnswer();
+    if (e.key === 'Backspace') removeNumber();
+    if (e.key === 'Delete') clearAll();
+    if (e.key !== '=' || e.key !== 'Enter') equalsClicked = false;
+    if (!operators.includes(e.key)) operatorClicked = false;
+
+    e.preventDefault();
 });
