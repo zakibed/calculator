@@ -1,218 +1,214 @@
-const input = document.querySelector('#display > div:first-of-type');
-const output = document.querySelector('#display > div:last-of-type');
-
-const operators = document.querySelectorAll('.operator');
-const numbers = document.querySelectorAll('.number');
-const decimal = document.querySelector('#decimal');
-const plusMinus = document.querySelector('#plus-minus');
-const percent = document.querySelector('#percent');
-const buttons = document.querySelectorAll('button:not(#equals)');
-
-const clear = document.querySelector('#clear');
-const equals = document.querySelector('#equals');
-
-const error = document.querySelector('#error');
-
+const topDisplay = document.querySelector('#display > div:first-of-type');
+const mainDisplay = document.querySelector('#display > div:last-of-type');
+const operatorBtns = document.querySelectorAll('.operator');
+const numberBtns = document.querySelectorAll('.number');
+const decimalBtn = document.querySelector('#decimal');
+const deleteBtn = document.querySelector('#delete');
+const clearBtn = document.querySelector('#clear');
+const percentBtn = document.querySelector('#percent');
+const equalsBtn = document.querySelector('#equals');
+const lightTheme = document.querySelector('#light-theme');
 const root = document.querySelector(':root');
-const body = document.querySelector('body');
-const inputs = document.querySelectorAll('input');
-const theme = document.querySelector('input[value="default"]');
+let operatorClicked = false;
+let equalsClicked = false;
+let solution = 0;
+let previousNum = 0;
+let currentNum = 0;
+let previousOp = '';
+let currentOp = '';
 
-let check = true;
-let opArr = [];
-let numArr = [];
-let op;
-let num = '';
-let key;
+function updateDisplay(main, top) {
+    mainDisplay.textContent = main;
+    topDisplay.textContent = top;
+}
 
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
+function clearAll() {
+    previousNum = 0;
+    currentNum = 0;
 
-const operate = (op) => {
-    numArr = numArr.map((n) => Number(n));
+    updateDisplay(0, '');
+}
 
-    const solution = numArr.reduce((a, b) => {
-        if (op === '+') return add(a, b);
-        if (op === '-') return subtract(a, b);
-        if (op === '*') return multiply(a, b);
-        if (op === '/') return divide(a, b);
-    });
-
-    return solution == Infinity ? 'ERROR' : Number(solution.toFixed(8));
-};
-
-const getOperator = (e) => {
-    if (check == true) numArr.push(output.textContent);
-
-    op = e.target.value;
-    opArr.push(op);
-
-    output.textContent =
-        opArr.length >= 2 ? operate(opArr[opArr.length - 2]) : operate(op);
-    input.textContent = `${output.textContent} ${e.target.textContent}`;
-    input.style.visibility = 'visible';
-
-    numArr = [output.textContent];
-    check = true;
-    num = '';
-
-    console.log(`operator : ${op}`);
-    console.log(opArr);
-};
-
-const getNumber = (e) => {
-    if (check == false) numArr = [];
-
-    num += e.target.textContent;
-    output.textContent = num;
-
-    check = true;
-
-    console.log(`number : ${output.textContent}`);
-};
-
-const getDecimal = () => {
-    if (!num[0]) num += '0';
-
-    if (!num.includes('.')) {
-        num += '.';
-        output.textContent = num;
+function calculate(num1, num2, op) {
+    switch (op) {
+        case '+':
+            solution = num1 + num2;
+            break;
+        case '-':
+            solution = num1 - num2;
+            break;
+        case '×':
+            solution = num1 * num2;
+            break;
+        case '÷':
+            solution = num1 / num2;
+            break;
+        default:
+            solution = 0;
     }
-};
 
-const getSign = () => {
-    if (!output.textContent[0].includes('-')) {
-        output.textContent = `-${output.textContent}`;
+    if (String(solution).length > 9) {
+        solution = solution.toPrecision(1);
+    }
+}
+
+function getNumber(e) {
+    const numContent = typeof e === 'string' ? e : this.textContent;
+
+    if (
+        operatorClicked ||
+        equalsClicked ||
+        (!currentNum && !mainDisplay.textContent.includes('.'))
+    ) {
+        mainDisplay.textContent = '';
+    }
+
+    mainDisplay.append(numContent);
+    currentNum = +mainDisplay.textContent;
+}
+
+function getOperator(e) {
+    const opContent = typeof e === 'string' ? e : this.textContent;
+
+    currentOp = opContent;
+
+    if (operatorClicked) {
+        calculate(currentNum, currentNum, previousOp);
+        updateDisplay(solution, `${solution} ${currentOp}`);
+
+        currentNum = solution;
+    } else if (equalsClicked || !previousNum) {
+        updateDisplay(+currentNum, `${+currentNum} ${currentOp}`);
     } else {
-        output.textContent = Math.abs(output.textContent);
+        calculate(previousNum, currentNum, previousOp);
+        updateDisplay(solution, `${solution} ${currentOp}`);
     }
 
-    if (check == false) numArr = [output.textContent];
-};
+    operatorClicked = true;
+    previousOp = opContent;
+    previousNum = +mainDisplay.textContent;
+}
 
-const getPercent = () => {
-    const percentage = output.textContent / 100;
-    output.textContent = Number(percentage.toFixed(8));
+function getDecimal() {
+    if (['.', 'e'].some((n) => mainDisplay.textContent.includes(n))) return;
 
-    if (check == false) numArr = [output.textContent];
-};
-
-const getOutput = () => {
-    if (!numArr.length || input.textContent.includes('=')) return;
-
-    numArr.push(output.textContent);
-
-    if (num[num.length - 1] == '.') {
-        num = num.slice(0, [num.length - 1]);
-        output.textContent = num;
+    if (operatorClicked || equalsClicked) {
+        mainDisplay.textContent = 0;
     }
 
-    input.textContent += ` ${output.textContent} =`;
-    output.textContent = operate(op);
+    mainDisplay.append('.');
+    currentNum = mainDisplay.textContent;
+}
 
-    numArr = [output.textContent];
-    check = false;
-    num = '';
+function getPercent() {
+    let percentage = currentNum / 100;
 
-    console.log(`[result : ${output.textContent}]`);
-};
+    if (String(percentage).length > 9) {
+        percentage = percentage.toPrecision(1);
+    }
 
-const reset = () => {
-    check = true;
-    opArr = [];
-    numArr = [];
-    op, (num = '');
-    output.textContent = '0';
-    input.style.visibility = 'hidden';
-    error.style.display = 'none';
-};
+    mainDisplay.textContent = percentage;
+    currentNum = percentage;
+}
 
-operators.forEach((btn) => btn.addEventListener('click', getOperator));
-numbers.forEach((btn) => btn.addEventListener('click', getNumber));
-decimal.addEventListener('click', getDecimal);
-plusMinus.addEventListener('click', getSign);
-percent.addEventListener('click', getPercent);
-equals.addEventListener('click', getOutput);
-clear.addEventListener('click', reset);
+function getAnswer() {
+    if (!previousOp || topDisplay.textContent.includes('=')) return;
 
-// select theme
-theme.checked = true;
-root.className = 'light';
+    if (operatorClicked) {
+        calculate(previousNum, previousNum, previousOp);
+        updateDisplay(
+            solution,
+            `${+previousNum} ${previousOp} ${+previousNum} =`
+        );
+    } else {
+        calculate(previousNum, currentNum, previousOp);
+        updateDisplay(
+            solution,
+            `${+previousNum} ${previousOp} ${+currentNum} =`
+        );
+    }
 
-inputs.forEach((input) => {
-    input.onchange = () => {
-        if (theme.checked == true) {
-            buttons.forEach((btn) => (btn.style.borderColor = 'white'));
+    equalsClicked = true;
+    previousOp = '';
+    previousNum = 0;
+    currentNum = +mainDisplay.textContent;
+}
 
-            body.style.background =
-                'linear-gradient(135deg,#FFB178 55%, #F5A66B 45%)';
-            body.style.color = 'black';
+function removeNumber() {
+    const display = mainDisplay.textContent;
 
-            root.className = 'light';
-        } else {
-            buttons.forEach((btn) => (btn.style.borderColor = '#314352'));
+    if (display.length > 1 && Number.isFinite(+display)) {
+        mainDisplay.textContent = display.slice(0, -1);
+    } else {
+        mainDisplay.textContent = 0;
+    }
 
-            body.style.background =
-                'linear-gradient(135deg, #22303a 55%, #1d2831 45%)';
-            body.style.color = 'white';
+    currentNum = +mainDisplay.textContent;
+}
 
-            root.className = 'dark';
-        }
+function getKey(e) {
+    const operators = {
+        '+': '+',
+        '-': '-',
+        '*': '×',
+        '/': '÷'
     };
-});
+    const key = e.key;
+    const btnEl = document.querySelector(`[data-code="${key.charCodeAt(0)}"]`);
 
-// keyboard support
-const getKey = (e) => {
-    key = e.shiftKey
-        ? document.querySelector(`button[data-key="${e.keyCode} sh"]`)
-        : document.querySelector(`button[data-key="${e.keyCode}"]`);
+    if (!Number.isNaN(+key)) getNumber(key);
+    if (Object.keys(operators).includes(key)) getOperator(operators[key]);
+    if (key === '.') getDecimal();
+    if (key === '%') getPercent();
+    if (key === '=' || key === 'Enter') getAnswer();
+    if (key === 'Backspace' && !e.shiftKey) removeNumber();
+    if (key === 'Delete' && !e.shiftKey) clearAll();
 
-    if (!key) return;
-
-    if (key.className == 'number') {
-        if (check == false) numArr = [];
-
-        num += key.textContent;
-        output.textContent = num;
-
-        check = true;
-
-        console.log(`number : ${output.textContent}`);
+    if (key !== '=' || key !== 'Enter') {
+        equalsClicked = false;
     }
 
-    if (key.className == 'operator') {
-        if (check == true) numArr.push(output.textContent);
-
-        op = key.value;
-        opArr.push(op);
-
-        output.textContent =
-            opArr.length >= 2 ? operate(opArr[opArr.length - 2]) : operate(op);
-        input.textContent = `${output.textContent} ${key.textContent}`;
-        input.style.visibility = 'visible';
-
-        numArr = [output.textContent];
-        check = true;
-        num = '';
-
-        console.log(`operator : ${op}`);
-        console.log(opArr);
+    if (!Object.keys(operators).includes(key)) {
+        operatorClicked = false;
     }
 
-    if (key.id == 'decimal') getDecimal();
-    if (key.id == 'percent') getPercent();
-    if (key.id == 'clear') reset();
-    if (key.id == 'equals') getOutput();
-
-    key.classList.add('active');
+    if (btnEl !== null) {
+        btnEl.classList.add('active');
+        btnEl.addEventListener('transitionend', () => {
+            btnEl.classList.remove('active');
+        });
+    }
 
     e.preventDefault();
-};
+}
 
-buttons.forEach((btn) => {
-    btn.addEventListener('transitionend', () => btn.classList.remove('active'));
+lightTheme.checked = true;
+root.className = 'light';
+
+numberBtns.forEach((e) => e.addEventListener('click', getNumber));
+operatorBtns.forEach((e) => e.addEventListener('click', getOperator));
+decimalBtn.addEventListener('click', getDecimal);
+percentBtn.addEventListener('click', getPercent);
+equalsBtn.addEventListener('click', getAnswer);
+deleteBtn.addEventListener('click', removeNumber);
+clearBtn.addEventListener('click', clearAll);
+
+document.querySelectorAll('button:not(#equals)').forEach((btn) =>
+    btn.addEventListener('click', () => {
+        equalsClicked = false;
+    })
+);
+
+document.querySelectorAll('button:not(.operator)').forEach((btn) =>
+    btn.addEventListener('click', () => {
+        operatorClicked = false;
+    })
+);
+
+document.querySelectorAll('input[type="radio"]').forEach((btn) => {
+    btn.addEventListener('change', () => {
+        root.className = lightTheme.checked ? 'light' : 'dark';
+    });
 });
 
-window.addEventListener('keydown', getKey);
+document.addEventListener('keydown', getKey);

@@ -1,40 +1,44 @@
 @font-face {
     font-family: 'Source Sans Pro';
-    src: url(fonts/SourceSansPro-Regular.otf);
+    src: url('./fonts/SourceSansPro-Regular.otf');
 }
 
 * {
     transition: all 70ms ease-out;
 }
 
-:root {
+:root.light {
+    --delete-img: url('./icons/delete-light.png');
+    --background: 135deg, #ffb178 55%, #f5a66b 45%;
     --btn-background: #faf7f9;
     --cont-background: #ebebeb;
-    --color-one: #919191;
-    --color-two: #757576;
+    --color-one: #9ca1a8;
+    --color-two: #767c84;
     --color-three: #182229;
-    --btn-shadow: 127, 127, 127;
+    --btn-shadow-top: white;
+    --btn-shadow-bottom: 127, 127, 127;
     --cont-shadow-one: 192, 192, 192;
     --cont-shadow-two: 138, 92, 40;
-    --eq-shadow: 140, 140, 140;
 }
 
 :root.dark {
+    --delete-img: url('./icons/delete-dark.png');
+    --background: 135deg, #22303a 55%, #1d2831 45%;
     --btn-background: #273846;
     --cont-background: #243441;
-    --color-one: #738390;
-    --color-two: #ed802e;
+    --color-one: #7f8b95;
+    --color-two: #e47f31;
     --color-three: #faf7f9;
-    --btn-shadow: 9, 15, 19;
+    --btn-shadow-top: #314352;
+    --btn-shadow-bottom: 9, 15, 19;
     --cont-shadow-one: 33, 46, 57;
     --cont-shadow-two: 9, 15, 19;
-    --eq-shadow: 9, 15, 19;
 }
 
 body {
     height: 100vh;
     font-size: 9px;
-    background: linear-gradient(135deg, #ffb178 55%, #f5a66b 45%);
+    background: linear-gradient(var(--background));
     overflow-x: hidden;
 }
 
@@ -50,35 +54,6 @@ h1 {
     color: var(--color-three);
 }
 
-/* button styling */
-button {
-    font-size: 3em;
-    color: var(--color-one);
-    background: var(--btn-background);
-    border: none;
-    border-top: 2px solid white;
-    border-radius: 12px;
-    box-shadow: 0 3px 0 rgba(var(--btn-shadow), 0.15), 0 8px 6px rgba(var(--btn-shadow), 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-button:active,
-#equals:active,
-.active {
-    border-width: 1px;
-    box-shadow: none;
-}
-
-.operator,
-#clear,
-#percent,
-#plus-minus {
-    color: var(--color-two);
-}
-
-/* container */
 .container {
     width: 37.5em;
     margin: 3em auto;
@@ -97,21 +72,50 @@ button:active,
     margin-bottom: 20px;
     color: var(--color-three);
     text-align: right;
-    overflow-wrap: break-word;
+    overflow: auto;
 }
 
 #display > div:first-of-type {
+    min-height: 30px;
     margin-right: 2px;
     font-size: 2.3em;
     color: var(--color-one);
-    visibility: hidden;
 }
 
 #display > div:last-of-type {
+    min-height: 80px;
     font-size: 6.5em;
 }
 
-/* grid */
+/* buttons */
+button {
+    font-size: 1.7rem;
+    color: var(--color-one);
+    background: var(--btn-background);
+    border: none;
+    border-top: 2px solid var(--btn-shadow-top);
+    border-radius: 12px;
+    box-shadow: 0 3px 0 rgba(var(--btn-shadow-bottom), 0.15), 0 8px 6px rgba(var(--btn-shadow-bottom), 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s ease;
+}
+
+button:active,
+#equals:active,
+.active {
+    border-width: 1px;
+    box-shadow: none;
+}
+
+.operator,
+#clear,
+#delete,
+#percent {
+    color: var(--color-two);
+}
+
 #buttons {
     display: grid;
     grid-template: repeat(5, 7.5em) / repeat(4, 7.5em);
@@ -131,6 +135,7 @@ button:active,
 }
 
 #subtract {
+    padding-bottom: 5px;
     grid-row-start: 3;
 }
 
@@ -140,13 +145,18 @@ button:active,
 
 #equals {
     color: #faf7f9;
-    background: #ed802e;
+    background: #e47f31;
     border-top: 3px solid #fd8931;
-    box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 8px 6px rgba(var(--eq-shadow), 0.5);
+    box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 8px 6px rgba(var(--btn-shadow-bottom), 0.5);
     grid-area: 5 / 3 / 5 / span 2;
 }
 
-/* theme selector */
+#delete img {
+    content: var(--delete-img);
+    width: 1.9rem;
+}
+
+/* theme inputs */
 #theme {
     text-align: center;
     display: flex;
@@ -157,6 +167,7 @@ button:active,
 label {
     color: var(--color-three);
     font-size: 16px;
+    cursor: pointer;
 }
 
 .radio-input {
@@ -187,7 +198,7 @@ input[type='radio']:checked + label:before {
     background: var(--color-three);
 }
 
-/* footer */
+/* footer and media queries */
 footer {
     font-size: 2.1em;
     text-align: center;
@@ -237,7 +248,7 @@ footer > a:hover {
 @media (max-width: 500px) {
     button {
         border-radius: 5px;
-        box-shadow: 0 2px 0 rgba(var(--btn-shadow), 0.15), 0 6px 4px rgba(var(--btn-shadow), 0.2);
+        box-shadow: 0 2px 0 rgba(var(--btn-shadow-bottom), 0.15), 0 6px 4px rgba(var(--btn-shadow-bottom), 0.2);
     }
 
     h1 {
@@ -258,6 +269,6 @@ footer > a:hover {
     }
 
     #equals {
-        box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 6px 4px rgba(var(--eq-shadow), 0.5);
+        box-shadow: 0 2px 0 rgba(190, 105, 40, 0.9), 0 6px 4px rgba(var(--btn-shadow-bottom), 0.5);
     }
 }

@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>+-&times;&divide; Calculator</title>
-        <script src="https://kit.fontawesome.com/ea6e9201dc.js" crossorigin="anonymous"></script>
+        <title>Calculator</title>
+        <link rel="icon" href="./icons/favicon.ico" />
         <link rel="stylesheet" href="style.css" />
+        <script src="https://kit.fontawesome.com/ea6e9201dc.js" crossorigin="anonymous"></script>
         <script src="script.js" defer></script>
     </head>
     <body>
@@ -13,53 +14,47 @@
             <h1>Theme</h1>
 
             <div class="radio-input">
-                <input type="radio" id="theme-one" name="theme" value="default" />
-                <label for="theme-one">Light</label>
+                <input type="radio" id="light-theme" name="theme" /><label for="light-theme">Light</label>
             </div>
 
             <div class="radio-input">
-                <input type="radio" id="theme-two" name="theme" value="dark" />
-                <label for="theme-two">Dark</label>
+                <input type="radio" id="dark-theme" name="theme" /><label for="dark-theme">Dark</label>
             </div>
         </div>
 
         <div class="container">
             <div id="display">
-                <div>0</div>
+                <div></div>
                 <div>0</div>
             </div>
 
             <div id="buttons">
-                <button data-key="8" id="clear" button>AC</button>
-                <button id="plus-minus">+/-</button>
-                <button data-key="53 sh" id="percent">%</button>
-
-                <button data-key="49" class="number">1</button>
-                <button data-key="50" class="number">2</button>
-                <button data-key="51" class="number">3</button>
-                <button data-key="52" class="number">4</button>
-                <button data-key="53" class="number">5</button>
-                <button data-key="54" class="number">6</button>
-                <button data-key="55" class="number">7</button>
-                <button data-key="56" class="number">8</button>
-                <button data-key="57" class="number">9</button>
-                <button data-key="48" class="number">0</button>
-
-                <button data-key="190" id="decimal">.</button>
-
-                <button data-key="191" class="operator" id="divide" value="/">&divide;</button>
-                <button data-key="56 sh" class="operator" id="multiply" value="*">&times;</button>
-                <button data-key="173" class="operator" id="subtract" value="-">-</button>
-                <button data-key="61 sh" class="operator" id="add" value="+">+</button>
-
-                <button data-key="61" id="equals">=</button>
+                <button data-code="68" id="clear" button>AC</button>
+                <button data-code="66" id="delete"><img alt="delete" /></button>
+                <button data-code="37" id="percent">%</button>
+                <button data-code="49" class="number">1</button>
+                <button data-code="50" class="number">2</button>
+                <button data-code="51" class="number">3</button>
+                <button data-code="52" class="number">4</button>
+                <button data-code="53" class="number">5</button>
+                <button data-code="54" class="number">6</button>
+                <button data-code="55" class="number">7</button>
+                <button data-code="56" class="number">8</button>
+                <button data-code="57" class="number">9</button>
+                <button data-code="48" class="number">0</button>
+                <button data-code="46" id="decimal">.</button>
+                <button data-code="47" class="operator" id="divide" value="/">÷</button>
+                <button data-code="42" class="operator" id="multiply" value="*">×</button>
+                <button data-code="45" class="operator" id="subtract" value="-">-</button>
+                <button data-code="43" class="operator" id="add" value="+">+</button>
+                <button data-code="61" id="equals">=</button>
             </div>
         </div>
 
         <footer>
-            <a href="https://github.com/ikaz1/calculator" target="_blank"
-                >by ikaz1 <span>|</span> <i class="fa-brands fa-github"></i
-            ></a>
+            <a href="https://github.com/ikaz1/calculator" target="_blank">
+                by ikaz1 <span>|</span> <i class="fa-brands fa-github"></i>
+            </a>
         </footer>
     </body>
 </html>
