@@ -30,16 +30,30 @@ function clearAll() {
 }
 
 function calculate(num1, num2, op) {
-    if (op === '+') solution = num1 + num2;
-    if (op === '-') solution = num1 - num2;
-    if (op === '×' || op === '*') solution = num1 * num2;
-    if (op === '÷' || op === '/') solution = num1 / num2;
+    switch (op) {
+        case '+':
+            solution = num1 + num2;
+            break;
+        case '-':
+            solution = num1 - num2;
+            break;
+        case '×':
+            solution = num1 * num2;
+            break;
+        case '÷':
+            solution = num1 / num2;
+            break;
+        default:
+            solution = 0;
+    }
 
-    if (String(solution).length > 9) solution = solution.toPrecision(1);
+    if (String(solution).length > 9) {
+        solution = solution.toPrecision(1);
+    }
 }
 
-function getNumber(btn) {
-    const btnContent = typeof btn === 'string' ? btn : this.textContent;
+function getNumber(e) {
+    const numContent = typeof e === 'string' ? e : this.textContent;
 
     if (
         operatorClicked ||
@@ -49,14 +63,14 @@ function getNumber(btn) {
         mainDisplay.textContent = '';
     }
 
-    mainDisplay.append(btnContent);
+    mainDisplay.append(numContent);
     currentNum = +mainDisplay.textContent;
 }
 
-function getOperator(btn) {
-    const btnContent = typeof btn === 'string' ? btn : this.textContent;
+function getOperator(e) {
+    const opContent = typeof e === 'string' ? e : this.textContent;
 
-    currentOp = btnContent;
+    currentOp = opContent;
 
     if (operatorClicked) {
         calculate(currentNum, currentNum, previousOp);
@@ -71,18 +85,16 @@ function getOperator(btn) {
     }
 
     operatorClicked = true;
-    previousOp = btnContent;
+    previousOp = opContent;
     previousNum = +mainDisplay.textContent;
 }
 
 function getDecimal() {
-    if (operatorClicked || equalsClicked) mainDisplay.textContent = 0;
+    if (['.', 'e'].some((n) => mainDisplay.textContent.includes(n))) return;
 
-    if (
-        mainDisplay.textContent.includes('.') ||
-        mainDisplay.textContent.includes('e')
-    )
-        return;
+    if (operatorClicked || equalsClicked) {
+        mainDisplay.textContent = 0;
+    }
 
     mainDisplay.append('.');
     currentNum = mainDisplay.textContent;
@@ -91,7 +103,9 @@ function getDecimal() {
 function getPercent() {
     let percentage = currentNum / 100;
 
-    if (String(percentage).length > 9) percentage = percentage.toPrecision(1);
+    if (String(percentage).length > 9) {
+        percentage = percentage.toPrecision(1);
+    }
 
     mainDisplay.textContent = percentage;
     currentNum = percentage;
@@ -123,12 +137,53 @@ function getAnswer() {
 function removeNumber() {
     const display = mainDisplay.textContent;
 
-    mainDisplay.textContent =
-        display.length > 1 && Number.isFinite(+display)
-            ? display.slice(0, -1)
-            : 0;
+    if (display.length > 1 && Number.isFinite(+display)) {
+        mainDisplay.textContent = display.slice(0, -1);
+    } else {
+        mainDisplay.textContent = 0;
+    }
+
     currentNum = +mainDisplay.textContent;
 }
+
+function getKey(e) {
+    const operators = {
+        '+': '+',
+        '-': '-',
+        '*': '×',
+        '/': '÷'
+    };
+    const key = e.key;
+    const btnEl = document.querySelector(`[data-code="${key.charCodeAt(0)}"]`);
+
+    if (!Number.isNaN(+key)) getNumber(key);
+    if (Object.keys(operators).includes(key)) getOperator(operators[key]);
+    if (key === '.') getDecimal();
+    if (key === '%') getPercent();
+    if (key === '=' || key === 'Enter') getAnswer();
+    if (key === 'Backspace' && !e.shiftKey) removeNumber();
+    if (key === 'Delete' && !e.shiftKey) clearAll();
+
+    if (key !== '=' || key !== 'Enter') {
+        equalsClicked = false;
+    }
+
+    if (!Object.keys(operators).includes(key)) {
+        operatorClicked = false;
+    }
+
+    if (btnEl !== null) {
+        btnEl.classList.add('active');
+        btnEl.addEventListener('transitionend', () => {
+            btnEl.classList.remove('active');
+        });
+    }
+
+    e.preventDefault();
+}
+
+lightTheme.checked = true;
+root.className = 'light';
 
 numberBtns.forEach((e) => e.addEventListener('click', getNumber));
 operatorBtns.forEach((e) => e.addEventListener('click', getOperator));
@@ -138,49 +193,22 @@ equalsBtn.addEventListener('click', getAnswer);
 deleteBtn.addEventListener('click', removeNumber);
 clearBtn.addEventListener('click', clearAll);
 
-document.querySelectorAll('button:not(#equals)').forEach((e) =>
-    e.addEventListener('click', () => {
+document.querySelectorAll('button:not(#equals)').forEach((btn) =>
+    btn.addEventListener('click', () => {
         equalsClicked = false;
     })
 );
 
-document.querySelectorAll('button:not(.operator)').forEach((e) =>
-    e.addEventListener('click', () => {
+document.querySelectorAll('button:not(.operator)').forEach((btn) =>
+    btn.addEventListener('click', () => {
         operatorClicked = false;
     })
 );
 
-// theme toggle
-lightTheme.checked = true;
-root.className = 'light';
-
-document.querySelectorAll('input[type="radio"]').forEach((e) => {
-    e.addEventListener('change', () => {
+document.querySelectorAll('input[type="radio"]').forEach((btn) => {
+    btn.addEventListener('change', () => {
         root.className = lightTheme.checked ? 'light' : 'dark';
     });
 });
 
-// keyboard support
-document.addEventListener('keydown', (e) => {
-    const key = document.querySelector(`[data-code="${e.key.charCodeAt(0)}"]`);
-    const operators = ['+', '-', '*', '/'];
-
-    if (!Number.isNaN(+e.key)) getNumber(e.key);
-    if (e.key === '+' || e.key === '-') getOperator(e.key);
-    if (e.key === '*') getOperator('×');
-    if (e.key === '/') getOperator('÷');
-    if (e.key === '.') getDecimal();
-    if (e.key === '%') getPercent();
-    if (e.key === '=' || e.key === 'Enter') getAnswer();
-    if (e.key === 'Backspace' && !e.shiftKey) removeNumber();
-    if (e.key === 'Delete' && !e.shiftKey) clearAll();
-    if (e.key !== '=' || e.key !== 'Enter') equalsClicked = false;
-    if (!operators.includes(e.key)) operatorClicked = false;
-
-    e.preventDefault();
-
-    key.classList.add('active');
-    key.addEventListener('transitionend', function () {
-        this.classList.remove('active');
-    });
-});
+document.addEventListener('keydown', getKey);
