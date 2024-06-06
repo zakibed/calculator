@@ -1,6 +1,6 @@
 # Calculator
 
-:heavy_plus_sign: :heavy_minus_sign: :heavy_multiplication_x: :heavy_division_sign: **[Live Demo](https://ikaz1.github.io/calculator/)**
+:heavy_plus_sign: :heavy_minus_sign: :heavy_multiplication_x: :heavy_division_sign: **[Live Demo](https://zakibed.github.io/calculator/)**
 
 A JavaScript calculator that can perform basic calculations:
 
